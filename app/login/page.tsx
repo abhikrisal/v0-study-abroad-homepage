@@ -9,31 +9,103 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Separator } from "@/components/ui/separator"
-import { Eye, EyeOff } from "lucide-react"
+import { Eye, EyeOff, Loader2 } from "lucide-react"
+import { createClient } from "@/lib/supabase/client"
 
 export default function LoginPage() {
   const router = useRouter()
   const [showPassword, setShowPassword] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [successMessage, setSuccessMessage] = useState<string | null>(null)
   const [loginData, setLoginData] = useState({ email: "", password: "" })
   const [signupData, setSignupData] = useState({ 
-    name: "", 
+    firstName: "",
+    lastName: "",
     email: "", 
     password: "", 
     confirmPassword: "" 
   })
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
+    setIsLoading(true)
+    setError(null)
+
+    const supabase = createClient()
+    const { error } = await supabase.auth.signInWithPassword({
+      email: loginData.email,
+      password: loginData.password
+    })
+
+    if (error) {
+      setError(error.message)
+      setIsLoading(false)
+      return
+    }
+
     router.push("/dashboard")
+    router.refresh()
   }
 
-  const handleSignup = (e: React.FormEvent) => {
+  const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault()
-    router.push("/onboarding")
+    setIsLoading(true)
+    setError(null)
+
+    if (signupData.password !== signupData.confirmPassword) {
+      setError("Passwords do not match")
+      setIsLoading(false)
+      return
+    }
+
+    if (signupData.password.length < 6) {
+      setError("Password must be at least 6 characters")
+      setIsLoading(false)
+      return
+    }
+
+    const supabase = createClient()
+    const { error } = await supabase.auth.signUp({
+      email: signupData.email,
+      password: signupData.password,
+      options: {
+        emailRedirectTo: process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL ?? 
+          `${window.location.origin}/auth/callback`,
+        data: {
+          first_name: signupData.firstName,
+          last_name: signupData.lastName,
+          role: 'student'
+        }
+      }
+    })
+
+    if (error) {
+      setError(error.message)
+      setIsLoading(false)
+      return
+    }
+
+    setSuccessMessage("Check your email to confirm your account")
+    setIsLoading(false)
   }
 
-  const handleGoogleLogin = () => {
-    router.push("/dashboard")
+  const handleGoogleLogin = async () => {
+    setIsLoading(true)
+    const supabase = createClient()
+    
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL ?? 
+          `${window.location.origin}/auth/callback`
+      }
+    })
+
+    if (error) {
+      setError(error.message)
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -60,6 +132,17 @@ export default function LoginPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
+            {error && (
+              <div className="mb-4 p-3 text-sm text-red-600 bg-red-50 rounded-md">
+                {error}
+              </div>
+            )}
+            {successMessage && (
+              <div className="mb-4 p-3 text-sm text-green-600 bg-green-50 rounded-md">
+                {successMessage}
+              </div>
+            )}
+
             <Tabs defaultValue="login" className="w-full">
               <TabsList className="grid w-full grid-cols-2 mb-6">
                 <TabsTrigger value="login">Login</TabsTrigger>
@@ -76,6 +159,7 @@ export default function LoginPage() {
                       placeholder="Enter your email"
                       value={loginData.email}
                       onChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
+                      required
                     />
                   </div>
                   <div className="space-y-2">
@@ -92,6 +176,7 @@ export default function LoginPage() {
                         placeholder="Enter your password"
                         value={loginData.password}
                         onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
+                        required
                       />
                       <button
                         type="button"
@@ -102,22 +187,42 @@ export default function LoginPage() {
                       </button>
                     </div>
                   </div>
-                  <Button type="submit" className="w-full">
-                    Sign In
+                  <Button type="submit" className="w-full" disabled={isLoading}>
+                    {isLoading ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Signing In...
+                      </>
+                    ) : (
+                      "Sign In"
+                    )}
                   </Button>
                 </form>
               </TabsContent>
 
               <TabsContent value="signup">
                 <form onSubmit={handleSignup} className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="signup-name">Full Name</Label>
-                    <Input
-                      id="signup-name"
-                      placeholder="Enter your full name"
-                      value={signupData.name}
-                      onChange={(e) => setSignupData({ ...signupData, name: e.target.value })}
-                    />
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="signup-firstname">First Name</Label>
+                      <Input
+                        id="signup-firstname"
+                        placeholder="John"
+                        value={signupData.firstName}
+                        onChange={(e) => setSignupData({ ...signupData, firstName: e.target.value })}
+                        required
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="signup-lastname">Last Name</Label>
+                      <Input
+                        id="signup-lastname"
+                        placeholder="Doe"
+                        value={signupData.lastName}
+                        onChange={(e) => setSignupData({ ...signupData, lastName: e.target.value })}
+                        required
+                      />
+                    </div>
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="signup-email">Email</Label>
@@ -127,6 +232,7 @@ export default function LoginPage() {
                       placeholder="Enter your email"
                       value={signupData.email}
                       onChange={(e) => setSignupData({ ...signupData, email: e.target.value })}
+                      required
                     />
                   </div>
                   <div className="space-y-2">
@@ -135,9 +241,10 @@ export default function LoginPage() {
                       <Input
                         id="signup-password"
                         type={showPassword ? "text" : "password"}
-                        placeholder="Create a password"
+                        placeholder="Create a password (min 6 characters)"
                         value={signupData.password}
                         onChange={(e) => setSignupData({ ...signupData, password: e.target.value })}
+                        required
                       />
                       <button
                         type="button"
@@ -156,10 +263,18 @@ export default function LoginPage() {
                       placeholder="Confirm your password"
                       value={signupData.confirmPassword}
                       onChange={(e) => setSignupData({ ...signupData, confirmPassword: e.target.value })}
+                      required
                     />
                   </div>
-                  <Button type="submit" className="w-full">
-                    Create Account
+                  <Button type="submit" className="w-full" disabled={isLoading}>
+                    {isLoading ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Creating Account...
+                      </>
+                    ) : (
+                      "Create Account"
+                    )}
                   </Button>
                 </form>
               </TabsContent>
@@ -175,6 +290,7 @@ export default function LoginPage() {
                   variant="outline"
                   className="w-full mt-6 gap-2"
                   onClick={handleGoogleLogin}
+                  disabled={isLoading}
                 >
                   <svg className="h-4 w-4" viewBox="0 0 24 24">
                     <path
