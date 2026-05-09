@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useCallback } from "react"
 import {
   FileText,
   Upload,
@@ -10,63 +10,26 @@ import {
   Download,
   Trash2,
   Plus,
+  Loader2,
 } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { createClient } from "@/lib/supabase/client"
+import { deleteDocument } from "@/lib/actions/documents"
 
-type DocumentStatus = "verified" | "pending" | "rejected" | "missing"
+type DocumentStatus = "verified" | "pending" | "rejected"
 
-const documents = [
-  {
-    id: 1,
-    name: "Academic Transcript",
-    fileName: "transcript_2025.pdf",
-    status: "verified" as DocumentStatus,
-    uploadDate: "Feb 10, 2026",
-    required: true,
-  },
-  {
-    id: 2,
-    name: "Statement of Purpose",
-    fileName: "sop_final.pdf",
-    status: "verified" as DocumentStatus,
-    uploadDate: "Feb 12, 2026",
-    required: true,
-  },
-  {
-    id: 3,
-    name: "Letter of Recommendation 1",
-    fileName: "lor_professor_smith.pdf",
-    status: "pending" as DocumentStatus,
-    uploadDate: "Mar 1, 2026",
-    required: true,
-  },
-  {
-    id: 4,
-    name: "Letter of Recommendation 2",
-    fileName: null,
-    status: "missing" as DocumentStatus,
-    uploadDate: null,
-    required: true,
-  },
-  {
-    id: 5,
-    name: "English Proficiency Test",
-    fileName: "ielts_score.pdf",
-    status: "verified" as DocumentStatus,
-    uploadDate: "Jan 20, 2026",
-    required: true,
-  },
-  {
-    id: 6,
-    name: "Portfolio",
-    fileName: "portfolio_2025.pdf",
-    status: "rejected" as DocumentStatus,
-    uploadDate: "Feb 28, 2026",
-    required: false,
-  },
-]
+interface Document {
+  id: string
+  document_type: string
+  file_name: string
+  file_url: string
+  file_size: number
+  status: DocumentStatus
+  rejection_reason: string | null
+  uploaded_at: string
+}
 
 const statusConfig = {
   verified: {
@@ -84,15 +47,47 @@ const statusConfig = {
     icon: AlertCircle,
     className: "bg-destructive/15 text-destructive border-destructive/30",
   },
-  missing: {
-    label: "Missing",
-    icon: AlertCircle,
-    className: "bg-muted text-muted-foreground border-border",
-  },
+}
+
+const documentTypeLabels: Record<string, string> = {
+  passport: "Passport",
+  transcript: "Academic Transcript",
+  degree: "Degree Certificate",
+  english_test: "English Proficiency Test",
+  sop: "Statement of Purpose",
+  lor: "Letter of Recommendation",
+  cv: "CV/Resume",
+  other: "Other Document",
 }
 
 export function DocumentUpload() {
+  const [documents, setDocuments] = useState<Document[]>([])
+  const [loading, setLoading] = useState(true)
   const [isDragging, setIsDragging] = useState(false)
+  const [deletingId, setDeletingId] = useState<string | null>(null)
+
+  const fetchDocuments = useCallback(async () => {
+    const supabase = createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+    
+    if (!user) {
+      setLoading(false)
+      return
+    }
+
+    const { data } = await supabase
+      .from("documents")
+      .select("*")
+      .eq("user_id", user.id)
+      .order("uploaded_at", { ascending: false })
+
+    setDocuments((data as Document[]) || [])
+    setLoading(false)
+  }, [])
+
+  useEffect(() => {
+    fetchDocuments()
+  }, [fetchDocuments])
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault()
@@ -106,10 +101,34 @@ export function DocumentUpload() {
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault()
     setIsDragging(false)
+    // File handling will be implemented with proper upload
+  }
+
+  const handleDelete = async (documentId: string) => {
+    setDeletingId(documentId)
+    const result = await deleteDocument(documentId)
+    if (result.success) {
+      setDocuments(prev => prev.filter(d => d.id !== documentId))
+    }
+    setDeletingId(null)
   }
 
   const completedCount = documents.filter((d) => d.status === "verified").length
-  const totalRequired = documents.filter((d) => d.required).length
+
+  if (loading) {
+    return (
+      <Card>
+        <CardHeader className="flex-row items-center justify-between">
+          <CardTitle className="text-lg">Documents</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="flex items-center justify-center py-8">
+            <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+          </div>
+        </CardContent>
+      </Card>
+    )
+  }
 
   return (
     <Card>
@@ -117,7 +136,7 @@ export function DocumentUpload() {
         <div>
           <CardTitle className="text-lg">Documents</CardTitle>
           <p className="mt-1 text-sm text-muted-foreground">
-            {completedCount} of {totalRequired} required documents verified
+            {completedCount} of {documents.length} documents verified
           </p>
         </div>
         <Button size="sm">
@@ -146,53 +165,63 @@ export function DocumentUpload() {
           <p className="mt-1 text-xs text-muted-foreground">PDF, DOC, or JPG up to 10MB</p>
         </div>
 
-        <div className="divide-y divide-border">
-          {documents.map((doc) => {
-            const status = statusConfig[doc.status]
-            const StatusIcon = status.icon
-            return (
-              <div key={doc.id} className="flex items-center gap-3 py-3 first:pt-0 last:pb-0">
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-secondary">
-                  <FileText className="h-4 w-4 text-muted-foreground" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
-                    <h4 className="text-sm font-medium text-foreground truncate">{doc.name}</h4>
-                    {doc.required && (
-                      <span className="text-xs text-destructive shrink-0">*</span>
+        {documents.length === 0 ? (
+          <div className="text-center py-4 text-muted-foreground">
+            <FileText className="h-10 w-10 mx-auto mb-2 opacity-50" />
+            <p className="text-sm">No documents uploaded yet</p>
+          </div>
+        ) : (
+          <div className="divide-y divide-border">
+            {documents.map((doc) => {
+              const status = statusConfig[doc.status] || statusConfig.pending
+              const StatusIcon = status.icon
+              return (
+                <div key={doc.id} className="flex items-center gap-3 py-3 first:pt-0 last:pb-0">
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-secondary">
+                    <FileText className="h-4 w-4 text-muted-foreground" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <h4 className="text-sm font-medium text-foreground truncate">
+                        {documentTypeLabels[doc.document_type] || doc.document_type}
+                      </h4>
+                    </div>
+                    <p className="text-xs text-muted-foreground truncate">{doc.file_name}</p>
+                    {doc.status === "rejected" && doc.rejection_reason && (
+                      <p className="text-xs text-destructive mt-0.5">{doc.rejection_reason}</p>
                     )}
                   </div>
-                  {doc.fileName ? (
-                    <p className="text-xs text-muted-foreground truncate">{doc.fileName}</p>
-                  ) : (
-                    <p className="text-xs text-muted-foreground italic">No file uploaded</p>
-                  )}
-                </div>
-                <Badge variant="outline" className={status.className}>
-                  <StatusIcon className="mr-1 h-3 w-3" />
-                  {status.label}
-                </Badge>
-                {doc.fileName && (
+                  <Badge variant="outline" className={status.className}>
+                    <StatusIcon className="mr-1 h-3 w-3" />
+                    {status.label}
+                  </Badge>
                   <div className="flex items-center gap-1">
-                    <Button variant="ghost" size="icon" className="h-8 w-8">
-                      <Download className="h-4 w-4" />
-                      <span className="sr-only">Download</span>
+                    <Button variant="ghost" size="icon" className="h-8 w-8" asChild>
+                      <a href={doc.file_url} target="_blank" rel="noopener noreferrer">
+                        <Download className="h-4 w-4" />
+                        <span className="sr-only">Download</span>
+                      </a>
                     </Button>
-                    <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-destructive">
-                      <Trash2 className="h-4 w-4" />
+                    <Button 
+                      variant="ghost" 
+                      size="icon" 
+                      className="h-8 w-8 text-muted-foreground hover:text-destructive"
+                      onClick={() => handleDelete(doc.id)}
+                      disabled={deletingId === doc.id}
+                    >
+                      {deletingId === doc.id ? (
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                      ) : (
+                        <Trash2 className="h-4 w-4" />
+                      )}
                       <span className="sr-only">Delete</span>
                     </Button>
                   </div>
-                )}
-                {!doc.fileName && (
-                  <Button size="sm" variant="outline">
-                    Upload
-                  </Button>
-                )}
-              </div>
-            )
-          })}
-        </div>
+                </div>
+              )
+            })}
+          </div>
+        )}
       </CardContent>
     </Card>
   )

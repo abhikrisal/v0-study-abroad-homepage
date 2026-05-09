@@ -1,44 +1,26 @@
-import { Clock, CheckCircle, Send, AlertCircle, ChevronRight } from "lucide-react"
+"use client"
+
+import { useEffect, useState } from "react"
+import { Clock, CheckCircle, Send, AlertCircle, ChevronRight, Loader2, FileText } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { createClient } from "@/lib/supabase/client"
 
-type ApplicationStatus = "submitted" | "in_review" | "accepted" | "rejected" | "pending"
+type ApplicationStatus = "submitted" | "in_review" | "accepted" | "rejected" | "draft"
 
-const applications = [
-  {
-    id: 1,
-    university: "University of Melbourne",
-    program: "Master of Data Science",
-    status: "accepted" as ApplicationStatus,
-    submittedDate: "Jan 15, 2026",
-    lastUpdate: "Mar 10, 2026",
-  },
-  {
-    id: 2,
-    university: "University of Toronto",
-    program: "MSc Computer Science",
-    status: "in_review" as ApplicationStatus,
-    submittedDate: "Feb 1, 2026",
-    lastUpdate: "Feb 28, 2026",
-  },
-  {
-    id: 3,
-    university: "Technical University of Munich",
-    program: "MSc Informatics",
-    status: "submitted" as ApplicationStatus,
-    submittedDate: "Mar 5, 2026",
-    lastUpdate: "Mar 5, 2026",
-  },
-  {
-    id: 4,
-    university: "ETH Zurich",
-    program: "MSc Data Science",
-    status: "pending" as ApplicationStatus,
-    submittedDate: "-",
-    lastUpdate: "-",
-  },
-]
+interface Application {
+  id: string
+  status: ApplicationStatus
+  submitted_at: string | null
+  updated_at: string
+  programs: {
+    name: string
+    universities: {
+      name: string
+    }
+  }
+}
 
 const statusConfig = {
   submitted: {
@@ -61,14 +43,83 @@ const statusConfig = {
     icon: AlertCircle,
     className: "bg-destructive/15 text-destructive border-destructive/30",
   },
-  pending: {
-    label: "Pending",
+  draft: {
+    label: "Draft",
     icon: Clock,
     className: "bg-muted text-muted-foreground border-border",
   },
 }
 
 export function ApplicationTracker() {
+  const [applications, setApplications] = useState<Application[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function fetchApplications() {
+      const supabase = createClient()
+      const { data: { user } } = await supabase.auth.getUser()
+      
+      if (!user) {
+        setLoading(false)
+        return
+      }
+
+      const { data } = await supabase
+        .from("applications")
+        .select(`
+          id,
+          status,
+          submitted_at,
+          updated_at,
+          programs (
+            name,
+            universities (
+              name
+            )
+          )
+        `)
+        .eq("user_id", user.id)
+        .order("updated_at", { ascending: false })
+
+      setApplications((data as Application[]) || [])
+      setLoading(false)
+    }
+
+    fetchApplications()
+  }, [])
+
+  if (loading) {
+    return (
+      <Card>
+        <CardHeader className="flex-row items-center justify-between">
+          <CardTitle className="text-lg">Application Tracker</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="flex items-center justify-center py-8">
+            <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+          </div>
+        </CardContent>
+      </Card>
+    )
+  }
+
+  if (applications.length === 0) {
+    return (
+      <Card>
+        <CardHeader className="flex-row items-center justify-between">
+          <CardTitle className="text-lg">Application Tracker</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="text-center py-8 text-muted-foreground">
+            <FileText className="h-12 w-12 mx-auto mb-4 opacity-50" />
+            <p>No applications yet</p>
+            <p className="text-sm mt-1">Start applying to programs you&apos;ve saved</p>
+          </div>
+        </CardContent>
+      </Card>
+    )
+  }
+
   return (
     <Card>
       <CardHeader className="flex-row items-center justify-between">
@@ -80,7 +131,7 @@ export function ApplicationTracker() {
       <CardContent>
         <div className="divide-y divide-border">
           {applications.map((application) => {
-            const status = statusConfig[application.status]
+            const status = statusConfig[application.status] || statusConfig.draft
             const StatusIcon = status.icon
             return (
               <div
@@ -93,13 +144,19 @@ export function ApplicationTracker() {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
                     <h3 className="font-medium text-foreground truncate">
-                      {application.university}
+                      {application.programs.universities.name}
                     </h3>
                   </div>
-                  <p className="text-sm text-muted-foreground truncate">{application.program}</p>
+                  <p className="text-sm text-muted-foreground truncate">{application.programs.name}</p>
                   <div className="mt-1 flex items-center gap-3 text-xs text-muted-foreground">
-                    <span>Submitted: {application.submittedDate}</span>
-                    <span className="hidden sm:inline">Updated: {application.lastUpdate}</span>
+                    <span>
+                      Submitted: {application.submitted_at 
+                        ? new Date(application.submitted_at).toLocaleDateString() 
+                        : "-"}
+                    </span>
+                    <span className="hidden sm:inline">
+                      Updated: {new Date(application.updated_at).toLocaleDateString()}
+                    </span>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">

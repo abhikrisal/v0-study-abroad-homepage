@@ -7,9 +7,10 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Mail, Phone, MapPin, Clock, Send, CheckCircle } from "lucide-react"
+import { Mail, Phone, MapPin, Clock, Send, CheckCircle, Loader2 } from "lucide-react"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
+import { submitContactMessage } from "@/lib/actions/contact"
 
 const subjects = [
   "General Inquiry",
@@ -22,6 +23,8 @@ const subjects = [
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -33,9 +36,20 @@ export default function ContactPage() {
     setFormData((prev) => ({ ...prev, [field]: value }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setSubmitted(true)
+    setLoading(true)
+    setError(null)
+
+    const result = await submitContactMessage(formData)
+    
+    if (result.success) {
+      setSubmitted(true)
+    } else {
+      setError(result.error || "Failed to send message. Please try again.")
+    }
+    
+    setLoading(false)
   }
 
   return (
@@ -204,6 +218,11 @@ export default function ContactPage() {
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-6">
+                    {error && (
+                      <div className="p-3 rounded-lg bg-destructive/10 text-destructive text-sm">
+                        {error}
+                      </div>
+                    )}
                     <div className="grid sm:grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="name">Full Name</Label>
@@ -256,9 +275,13 @@ export default function ContactPage() {
                         required
                       />
                     </div>
-                    <Button type="submit" className="gap-2">
-                      <Send className="h-4 w-4" />
-                      Send Message
+                    <Button type="submit" className="gap-2" disabled={loading}>
+                      {loading ? (
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                      ) : (
+                        <Send className="h-4 w-4" />
+                      )}
+                      {loading ? "Sending..." : "Send Message"}
                     </Button>
                   </form>
                 )}
