@@ -109,6 +109,28 @@ export async function unsaveProgram(programId: string) {
   return { success: true }
 }
 
+// Alias for removeSavedProgram
+export async function removeSavedProgram(savedProgramId: string) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  
+  if (!user) {
+    return { error: 'You must be logged in' }
+  }
+
+  const { error } = await supabase
+    .from('saved_programs')
+    .delete()
+    .eq('id', savedProgramId)
+    .eq('user_id', user.id)
+
+  if (error) {
+    return { error: error.message }
+  }
+
+  return { success: true }
+}
+
 export async function getSavedPrograms() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
