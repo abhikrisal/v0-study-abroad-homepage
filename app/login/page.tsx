@@ -51,11 +51,13 @@ export default function LoginPage() {
         return
       }
 
-      if (data.user) {
-        router.push("/dashboard")
-        router.refresh()
+      if (data.user && data.session) {
+        // Use window.location for a full page reload to ensure cookies are set
+        window.location.href = "/dashboard"
+        return
       }
     } catch (err) {
+      console.log('[v0] Login error:', err)
       setError('An unexpected error occurred. Please try again.')
       setIsLoading(false)
     }
