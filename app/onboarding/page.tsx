@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -9,8 +9,9 @@ import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { Progress } from "@/components/ui/progress"
-import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react"
+import { ArrowLeft, ArrowRight, CheckCircle2, Loader2 } from "lucide-react"
 import Link from "next/link"
+import { createClient } from "@/lib/supabase/client"
 
 const steps = [
   { id: 1, title: "Personal Details" },
@@ -19,14 +20,22 @@ const steps = [
   { id: 4, title: "Career Goals" },
 ]
 
-const countries = [
+const nationalities = [
+  "Nepal", "India", "Bangladesh", "Pakistan", "Sri Lanka", "Nigeria",
+  "Ghana", "Kenya", "Philippines", "Vietnam", "Indonesia", "China",
   "United States", "United Kingdom", "Canada", "Australia", "Germany", 
-  "France", "Netherlands", "Ireland", "New Zealand", "Singapore"
+  "France", "Netherlands", "Ireland", "New Zealand", "Singapore", "Other"
+]
+
+const preferredCountries = [
+  "United States", "United Kingdom", "Canada", "Australia", "Germany", 
+  "France", "Netherlands", "Ireland", "New Zealand", "Singapore", "Switzerland"
 ]
 
 const fieldsOfStudy = [
   "Computer Science", "Business Administration", "Engineering", "Medicine",
-  "Law", "Arts & Design", "Data Science", "Psychology", "Economics", "Biology"
+  "Law", "Arts & Design", "Data Science", "Psychology", "Economics", "Biology",
+  "Environmental Science", "International Relations", "Architecture"
 ]
 
 const qualifications = [
@@ -49,11 +58,15 @@ const careerGoals = [
 export default function OnboardingPage() {
   const router = useRouter()
   const [currentStep, setCurrentStep] = useState(1)
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [user, setUser] = useState<{ id: string; email: string } | null>(null)
+  
   const [formData, setFormData] = useState({
     // Step 1: Personal Details
     firstName: "",
     lastName: "",
-    email: "",
+    phone: "",
     nationality: "",
     // Step 2: Academic Background
     gpa: "",
@@ -71,18 +84,93 @@ export default function OnboardingPage() {
     additionalInfo: "",
   })
 
+  useEffect(() => {
+    const supabase = createClient()
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      if (user) {
+        setUser({ id: user.id, email: user.email || '' })
+        // Pre-fill email if available from user metadata
+        const metadata = user.user_metadata
+        if (metadata) {
+          setFormData(prev => ({
+            ...prev,
+            firstName: metadata.first_name || '',
+            lastName: metadata.last_name || '',
+          }))
+        }
+      }
+    })
+  }, [])
+
   const updateFormData = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
   }
 
   const progressPercentage = (currentStep / steps.length) * 100
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (currentStep < steps.length) {
       setCurrentStep(currentStep + 1)
     } else {
-      // Submit and redirect to dashboard
-      router.push("/dashboard")
+      // Submit to database
+      setIsLoading(true)
+      setError(null)
+      
+      try {
+        const supabase = createClient()
+        const { data: { user } } = await supabase.auth.getUser()
+        
+        if (!user) {
+          setError("Please log in to save your profile")
+          setIsLoading(false)
+          return
+        }
+
+        // Update profile
+        const { error: profileError } = await supabase
+          .from('profiles')
+          .upsert({
+            id: user.id,
+            first_name: formData.firstName,
+            last_name: formData.lastName,
+            phone: formData.phone,
+            country: formData.nationality,
+            highest_education: formData.highestQualification,
+            gpa: formData.gpa ? parseFloat(formData.gpa) : null,
+            english_test: formData.englishTest,
+            english_score: formData.englishScore ? parseFloat(formData.englishScore) : null,
+            updated_at: new Date().toISOString()
+          })
+
+        if (profileError) {
+          throw profileError
+        }
+
+        // Update preferences
+        const { error: prefError } = await supabase
+          .from('preferences')
+          .upsert({
+            user_id: user.id,
+            preferred_countries: [formData.preferredCountry],
+            preferred_fields: [formData.fieldOfStudy],
+            budget_min: formData.budgetMin ? parseInt(formData.budgetMin) : null,
+            budget_max: formData.budgetMax ? parseInt(formData.budgetMax) : null,
+            preferred_level: formData.programLevel,
+            updated_at: new Date().toISOString()
+          })
+
+        if (prefError) {
+          throw prefError
+        }
+
+        // Redirect to dashboard
+        router.push("/dashboard")
+        router.refresh()
+      } catch (err) {
+        console.error('Error saving profile:', err)
+        setError("Failed to save your profile. Please try again.")
+        setIsLoading(false)
+      }
     }
   }
 
@@ -149,6 +237,13 @@ export default function OnboardingPage() {
           </p>
         </div>
 
+        {/* Error Message */}
+        {error && (
+          <div className="mb-4 p-3 text-sm text-red-600 bg-red-50 rounded-md">
+            {error}
+          </div>
+        )}
+
         {/* Form Card */}
         <Card className="border border-border">
           <CardHeader>
@@ -185,13 +280,13 @@ export default function OnboardingPage() {
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="email">Email Address</Label>
+                  <Label htmlFor="phone">Phone Number</Label>
                   <Input
-                    id="email"
-                    type="email"
-                    placeholder="Enter your email address"
-                    value={formData.email}
-                    onChange={(e) => updateFormData("email", e.target.value)}
+                    id="phone"
+                    type="tel"
+                    placeholder="Enter your phone number"
+                    value={formData.phone}
+                    onChange={(e) => updateFormData("phone", e.target.value)}
                   />
                 </div>
                 <div className="space-y-2">
@@ -204,7 +299,7 @@ export default function OnboardingPage() {
                       <SelectValue placeholder="Select your nationality" />
                     </SelectTrigger>
                     <SelectContent>
-                      {countries.map((country) => (
+                      {nationalities.map((country) => (
                         <SelectItem key={country} value={country}>
                           {country}
                         </SelectItem>
@@ -218,44 +313,6 @@ export default function OnboardingPage() {
             {/* Step 2: Academic Background */}
             {currentStep === 2 && (
               <div className="grid gap-6">
-                <div className="space-y-2">
-                  <Label htmlFor="gpa">GPA / Grade</Label>
-                  <Input
-                    id="gpa"
-                    placeholder="e.g., 3.5/4.0 or 85%"
-                    value={formData.gpa}
-                    onChange={(e) => updateFormData("gpa", e.target.value)}
-                  />
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="englishTest">English Test</Label>
-                    <Select
-                      value={formData.englishTest}
-                      onValueChange={(value) => updateFormData("englishTest", value)}
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select test type" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="ielts">IELTS</SelectItem>
-                        <SelectItem value="toefl">TOEFL</SelectItem>
-                        <SelectItem value="pte">PTE Academic</SelectItem>
-                        <SelectItem value="duolingo">Duolingo English Test</SelectItem>
-                        <SelectItem value="none">Not taken yet</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="englishScore">Score</Label>
-                    <Input
-                      id="englishScore"
-                      placeholder="e.g., 7.0 or 100"
-                      value={formData.englishScore}
-                      onChange={(e) => updateFormData("englishScore", e.target.value)}
-                    />
-                  </div>
-                </div>
                 <div className="space-y-2">
                   <Label htmlFor="highestQualification">Highest Qualification</Label>
                   <Select
@@ -274,6 +331,50 @@ export default function OnboardingPage() {
                     </SelectContent>
                   </Select>
                 </div>
+                <div className="space-y-2">
+                  <Label htmlFor="gpa">GPA / Grade (on 4.0 scale)</Label>
+                  <Input
+                    id="gpa"
+                    type="number"
+                    step="0.1"
+                    min="0"
+                    max="4"
+                    placeholder="e.g., 3.5"
+                    value={formData.gpa}
+                    onChange={(e) => updateFormData("gpa", e.target.value)}
+                  />
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="englishTest">English Test</Label>
+                    <Select
+                      value={formData.englishTest}
+                      onValueChange={(value) => updateFormData("englishTest", value)}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select test type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="IELTS">IELTS</SelectItem>
+                        <SelectItem value="TOEFL">TOEFL</SelectItem>
+                        <SelectItem value="PTE">PTE Academic</SelectItem>
+                        <SelectItem value="Duolingo">Duolingo English Test</SelectItem>
+                        <SelectItem value="none">Not taken yet</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="englishScore">Score</Label>
+                    <Input
+                      id="englishScore"
+                      type="number"
+                      step="0.5"
+                      placeholder="e.g., 7.0 for IELTS"
+                      value={formData.englishScore}
+                      onChange={(e) => updateFormData("englishScore", e.target.value)}
+                    />
+                  </div>
+                </div>
               </div>
             )}
 
@@ -290,7 +391,7 @@ export default function OnboardingPage() {
                       <SelectValue placeholder="Select preferred country" />
                     </SelectTrigger>
                     <SelectContent>
-                      {countries.map((country) => (
+                      {preferredCountries.map((country) => (
                         <SelectItem key={country} value={country}>
                           {country}
                         </SelectItem>
@@ -302,11 +403,13 @@ export default function OnboardingPage() {
                   <Label>Budget Range (USD per year)</Label>
                   <div className="grid grid-cols-2 gap-4">
                     <Input
+                      type="number"
                       placeholder="Min (e.g., 15000)"
                       value={formData.budgetMin}
                       onChange={(e) => updateFormData("budgetMin", e.target.value)}
                     />
                     <Input
+                      type="number"
                       placeholder="Max (e.g., 50000)"
                       value={formData.budgetMax}
                       onChange={(e) => updateFormData("budgetMax", e.target.value)}
@@ -374,7 +477,7 @@ export default function OnboardingPage() {
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="additionalInfo">Tell us more about your goals</Label>
+                  <Label htmlFor="additionalInfo">Tell us more about your goals (optional)</Label>
                   <Textarea
                     id="additionalInfo"
                     placeholder="Share any additional information about your career aspirations, specific universities you're interested in, or any other relevant details..."
@@ -391,19 +494,39 @@ export default function OnboardingPage() {
               <Button
                 variant="outline"
                 onClick={handleBack}
-                disabled={currentStep === 1}
+                disabled={currentStep === 1 || isLoading}
                 className="gap-2"
               >
                 <ArrowLeft className="h-4 w-4" />
                 Back
               </Button>
-              <Button onClick={handleNext} className="gap-2">
-                {currentStep === steps.length ? "Complete" : "Next"}
-                <ArrowRight className="h-4 w-4" />
+              <Button onClick={handleNext} disabled={isLoading} className="gap-2">
+                {isLoading ? (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    Saving...
+                  </>
+                ) : currentStep === steps.length ? (
+                  "Complete"
+                ) : (
+                  <>
+                    Next
+                    <ArrowRight className="h-4 w-4" />
+                  </>
+                )}
               </Button>
             </div>
           </CardContent>
         </Card>
+
+        {!user && (
+          <p className="text-center text-sm text-muted-foreground mt-4">
+            <Link href="/login" className="text-accent hover:underline">
+              Log in
+            </Link>{" "}
+            to save your profile and get personalized recommendations.
+          </p>
+        )}
       </main>
     </div>
   )

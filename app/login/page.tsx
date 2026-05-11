@@ -31,21 +31,35 @@ export default function LoginPage() {
     e.preventDefault()
     setIsLoading(true)
     setError(null)
+    setSuccessMessage(null)
 
-    const supabase = createClient()
-    const { error } = await supabase.auth.signInWithPassword({
-      email: loginData.email,
-      password: loginData.password
-    })
+    try {
+      const supabase = createClient()
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: loginData.email,
+        password: loginData.password
+      })
 
-    if (error) {
-      setError(error.message)
+      if (error) {
+        if (error.message.includes('Invalid login credentials')) {
+          setError('Invalid email or password. Please try again.')
+        } else if (error.message.includes('Email not confirmed')) {
+          setError('Please confirm your email before logging in. Check your inbox.')
+        } else {
+          setError(error.message)
+        }
+        setIsLoading(false)
+        return
+      }
+
+      if (data.user) {
+        router.push("/dashboard")
+        router.refresh()
+      }
+    } catch (err) {
+      setError('An unexpected error occurred. Please try again.')
       setIsLoading(false)
-      return
     }
-
-    router.push("/dashboard")
-    router.refresh()
   }
 
   const handleSignup = async (e: React.FormEvent) => {
