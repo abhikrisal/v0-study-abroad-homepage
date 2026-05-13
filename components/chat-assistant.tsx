@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 import { useState, useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Card } from "@/components/ui/card"
 import { MessageCircle, X, Send, Bot, User } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { generateNLPResponse, generateContextualResponse } from "@/lib/services/nlp-chatbot"
 
 interface Message {
   id: number
@@ -15,34 +16,18 @@ interface Message {
 }
 
 const quickSuggestions = [
-  "What universities match me?",
-  "Check my eligibility",
   "Help with my application",
+  "Visa procedures",
+  "SOP writing tips",
+  "Scholarships and funding",
 ]
-
-const botResponses: Record<string, string> = {
-  "what universities match me?": "Based on your profile, I can help you find matching universities! To get personalized recommendations, please complete your profile in the onboarding section. Would you like me to guide you through the process?",
-  "check my eligibility": "I&apos;d be happy to help check your eligibility! You can use our AI Eligibility Check tool at /eligibility to see which universities you qualify for, categorized into Safe, Moderate, and Reach schools.",
-  "help with my application": "I can help you with your application! Here are some tips: 1) Make sure all documents are uploaded and verified, 2) Check application deadlines carefully, 3) Personalize your Statement of Purpose for each university. What specific aspect would you like help with?",
-  "default": "Thanks for reaching out! I&apos;m Lynx, your AI study abroad assistant. I can help you with university matching, eligibility checks, application guidance, and answer any questions about studying abroad. How can I assist you today?",
-}
-
-function getBotResponse(message: string): string {
-  const lowerMessage = message.toLowerCase()
-  for (const [key, response] of Object.entries(botResponses)) {
-    if (lowerMessage.includes(key) || key.includes(lowerMessage)) {
-      return response
-    }
-  }
-  return botResponses.default
-}
 
 export function ChatAssistant() {
   const [isOpen, setIsOpen] = useState(false)
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
-      content: "Hi! I'm Lynx, your AI study abroad assistant. How can I help you today?",
+      content: "Hi! I'm Lynx, your AI study abroad assistant. I can help you with university matching, applications, visas, scholarships, and more. What would you like to know?",
       sender: "bot",
       timestamp: new Date(),
     },
@@ -73,17 +58,20 @@ export function ChatAssistant() {
     setInputValue("")
     setIsTyping(true)
 
-    // Simulate bot response delay
+    // Simulate NLP processing delay
     setTimeout(() => {
+      // Get NLP-based response
+      const botResponseText = generateNLPResponse(content)
+      
       const botMessage: Message = {
         id: messages.length + 2,
-        content: getBotResponse(content),
+        content: botResponseText,
         sender: "bot",
         timestamp: new Date(),
       }
       setMessages((prev) => [...prev, botMessage])
       setIsTyping(false)
-    }, 1000)
+    }, 800)
   }
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -119,7 +107,7 @@ export function ChatAssistant() {
             </div>
             <div className="flex-1">
               <h3 className="font-semibold">Lynx</h3>
-              <p className="text-xs text-primary-foreground/70">AI Study Abroad Assistant</p>
+              <p className="text-xs text-primary-foreground/70">AI Study Abroad Guide</p>
             </div>
             <div className="flex items-center gap-1">
               <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
@@ -153,7 +141,7 @@ export function ChatAssistant() {
                 </div>
                 <div
                   className={cn(
-                    "max-w-[70%] rounded-2xl px-4 py-2 text-sm",
+                    "max-w-[70%] rounded-2xl px-4 py-2 text-sm whitespace-pre-wrap",
                     message.sender === "user"
                       ? "bg-primary text-primary-foreground rounded-tr-none"
                       : "bg-secondary text-secondary-foreground rounded-tl-none"
@@ -201,7 +189,7 @@ export function ChatAssistant() {
               <Input
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                placeholder="Type your message..."
+                placeholder="Ask me anything..."
                 className="flex-1"
               />
               <Button type="submit" size="icon" disabled={!inputValue.trim()}>

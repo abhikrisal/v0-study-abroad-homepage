@@ -1,7 +1,8 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import {
   LayoutDashboard,
   GraduationCap,
@@ -26,7 +27,9 @@ import {
   SidebarMenuItem,
   SidebarSeparator,
 } from "@/components/ui/sidebar"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { createClient } from "@/lib/supabase/client"
+import type { User as SupabaseUser } from "@supabase/supabase-js"
 
 const mainNavItems = [
   {
@@ -36,17 +39,17 @@ const mainNavItems = [
   },
   {
     title: "Saved Programs",
-    href: "/dashboard/programs",
+    href: "/dashboard",
     icon: GraduationCap,
   },
   {
     title: "Applications",
-    href: "/dashboard/applications",
+    href: "/dashboard",
     icon: FileText,
   },
   {
     title: "Documents",
-    href: "/dashboard/documents",
+    href: "/dashboard",
     icon: Upload,
   },
 ]
@@ -54,23 +57,66 @@ const mainNavItems = [
 const secondaryNavItems = [
   {
     title: "Profile",
-    href: "/dashboard/profile",
+    href: "/dashboard",
     icon: User,
   },
   {
     title: "Notifications",
-    href: "/dashboard/notifications",
+    href: "/dashboard",
     icon: Bell,
   },
   {
     title: "Settings",
-    href: "/dashboard/settings",
+    href: "/dashboard",
     icon: Settings,
   },
 ]
 
 export function DashboardSidebar() {
   const pathname = usePathname()
+  const router = useRouter()
+  const [user, setUser] = useState<SupabaseUser | null>(null)
+  const [profile, setProfile] = useState<{ first_name?: string; last_name?: string } | null>(null)
+
+  useEffect(() => {
+    const supabase = createClient()
+    
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      setUser(user)
+      if (user) {
+        supabase
+          .from('profiles')
+          .select('first_name, last_name')
+          .eq('id', user.id)
+          .single()
+          .then(({ data }) => setProfile(data))
+      }
+    })
+  }, [])
+
+  const handleLogout = async () => {
+    const supabase = createClient()
+    await supabase.auth.signOut()
+    router.push('/')
+    router.refresh()
+  }
+
+  const getInitials = () => {
+    if (profile?.first_name && profile?.last_name) {
+      return `${profile.first_name.charAt(0)}${profile.last_name.charAt(0)}`.toUpperCase()
+    }
+    if (user?.email) {
+      return user.email.charAt(0).toUpperCase()
+    }
+    return 'U'
+  }
+
+  const getDisplayName = () => {
+    if (profile?.first_name && profile?.last_name) {
+      return `${profile.first_name} ${profile.last_name}`
+    }
+    return user?.email?.split('@')[0] || 'User'
+  }
 
   return (
     <Sidebar>
@@ -132,14 +178,22 @@ export function DashboardSidebar() {
         <SidebarSeparator className="mb-4" />
         <div className="flex items-center gap-3">
           <Avatar className="h-9 w-9">
-            <AvatarImage src="/avatar.jpg" alt="User" />
-            <AvatarFallback className="bg-secondary text-secondary-foreground">JD</AvatarFallback>
+            <AvatarFallback className="bg-accent text-accent-foreground">
+              {getInitials()}
+            </AvatarFallback>
           </Avatar>
           <div className="flex flex-1 flex-col overflow-hidden">
-            <span className="truncate text-sm font-medium text-foreground">Jane Doe</span>
-            <span className="truncate text-xs text-muted-foreground">jane@example.com</span>
+            <span className="truncate text-sm font-medium text-foreground">
+              {getDisplayName()}
+            </span>
+            <span className="truncate text-xs text-muted-foreground">
+              {user?.email || 'Loading...'}
+            </span>
           </div>
-          <button className="flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors">
+          <button 
+            onClick={handleLogout}
+            className="flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors"
+          >
             <LogOut className="h-4 w-4" />
             <span className="sr-only">Log out</span>
           </button>

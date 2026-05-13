@@ -2,18 +2,59 @@ import { CheckCircle, Circle, ChevronRight } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
-const profileSections = [
-  { id: 1, name: "Personal Information", completed: true },
-  { id: 2, name: "Educational Background", completed: true },
-  { id: 3, name: "Test Scores", completed: true },
-  { id: 4, name: "Work Experience", completed: true },
-  { id: 5, name: "Research & Publications", completed: false },
-  { id: 6, name: "Extracurricular Activities", completed: false },
-  { id: 7, name: "Study Preferences", completed: true },
-]
+interface Profile {
+  first_name?: string | null
+  last_name?: string | null
+  phone?: string | null
+  country?: string | null
+  date_of_birth?: string | null
+  highest_education?: string | null
+  gpa?: number | null
+  english_test?: string | null
+  english_score?: number | null
+}
 
-export function ProfileProgress() {
+interface ProfileProgressProps {
+  profile: Profile | null
+}
+
+export function ProfileProgress({ profile }: ProfileProgressProps) {
+  // Calculate completion based on profile data
+  const profileSections = [
+    { 
+      id: 1, 
+      name: "Personal Information", 
+      completed: Boolean(profile?.first_name && profile?.last_name)
+    },
+    { 
+      id: 2, 
+      name: "Contact Details", 
+      completed: Boolean(profile?.phone)
+    },
+    { 
+      id: 3, 
+      name: "Location", 
+      completed: Boolean(profile?.country)
+    },
+    { 
+      id: 4, 
+      name: "Educational Background", 
+      completed: Boolean(profile?.highest_education)
+    },
+    { 
+      id: 5, 
+      name: "Academic Performance", 
+      completed: Boolean(profile?.gpa)
+    },
+    { 
+      id: 6, 
+      name: "English Proficiency", 
+      completed: Boolean(profile?.english_test && profile?.english_score)
+    },
+  ]
+
   const completedSections = profileSections.filter((s) => s.completed).length
   const totalSections = profileSections.length
   const progressPercentage = Math.round((completedSections / totalSections) * 100)
@@ -62,8 +103,8 @@ export function ProfileProgress() {
           ))}
         </div>
 
-        <Button className="mt-4 w-full" variant="outline">
-          Complete Profile
+        <Button className="mt-4 w-full" variant="outline" asChild>
+          <Link href="/onboarding">Complete Profile</Link>
         </Button>
       </CardContent>
     </Card>

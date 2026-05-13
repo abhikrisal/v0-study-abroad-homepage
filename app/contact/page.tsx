@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle, Loader2 } from "lucide-react"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
-import { submitContactMessage } from "@/lib/actions/contact"
+import { submitContactForm } from "@/lib/actions/contact"
 
 const subjects = [
   "General Inquiry",
@@ -41,7 +41,7 @@ export default function ContactPage() {
     setLoading(true)
     setError(null)
 
-    const result = await submitContactMessage(formData)
+    const result = await submitContactForm(formData)
     
     if (result.success) {
       setSubmitted(true)

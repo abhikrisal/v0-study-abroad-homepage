@@ -1,52 +1,43 @@
-"use client"
+'use client'
 
-import { useState } from "react"
+import { useState, useTransition } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Badge } from "@/components/ui/badge"
-import { Sparkles, CheckCircle, AlertTriangle, Target, MapPin, DollarSign, GraduationCap } from "lucide-react"
+import { Sparkles, CheckCircle, AlertTriangle, Target, MapPin, DollarSign, GraduationCap, Loader, TrendingUp } from "lucide-react"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
+import { checkEligibility } from "@/lib/actions/eligibility"
 
 const countries = [
   "United States", "United Kingdom", "Canada", "Australia", "Germany", 
   "France", "Netherlands", "Ireland", "New Zealand", "Singapore"
 ]
 
+const fields = [
+  "Computer Science", "Engineering", "Business", "Data Science", "Medicine",
+  "Law", "Psychology", "Economics", "Environmental Science", "Architecture"
+]
+
 type CategoryType = "safe" | "moderate" | "reach"
 
 interface University {
-  name: string
+  universityName: string
   country: string
-  program: string
-  minGPA: string
-  minIELTS: string
-  tuition: string
+  tuition: number
+  fitScore: number
+  matchPercentage: number
   category: CategoryType
+  reasons: string[]
 }
-
-const universityResults: University[] = [
-  // Safe
-  { name: "University of Birmingham", country: "United Kingdom", program: "MSc Data Science", minGPA: "3.0", minIELTS: "6.5", tuition: "$28,000", category: "safe" },
-  { name: "University of Auckland", country: "New Zealand", program: "Master of Data Science", minGPA: "3.0", minIELTS: "6.5", tuition: "$32,000", category: "safe" },
-  { name: "Trinity College Dublin", country: "Ireland", program: "MSc Computer Science", minGPA: "3.0", minIELTS: "6.5", tuition: "$25,000", category: "safe" },
-  // Moderate
-  { name: "University of Toronto", country: "Canada", program: "MSc Computer Science", minGPA: "3.3", minIELTS: "7.0", tuition: "$35,000", category: "moderate" },
-  { name: "University of Melbourne", country: "Australia", program: "Master of IT", minGPA: "3.2", minIELTS: "7.0", tuition: "$42,000", category: "moderate" },
-  { name: "TU Munich", country: "Germany", program: "MSc Informatics", minGPA: "3.2", minIELTS: "6.5", tuition: "$500", category: "moderate" },
-  // Reach
-  { name: "Stanford University", country: "United States", program: "MS Computer Science", minGPA: "3.7", minIELTS: "7.5", tuition: "$58,000", category: "reach" },
-  { name: "MIT", country: "United States", program: "MS EECS", minGPA: "3.8", minIELTS: "7.5", tuition: "$55,000", category: "reach" },
-  { name: "Cambridge University", country: "United Kingdom", program: "MPhil Advanced CS", minGPA: "3.7", minIELTS: "7.5", tuition: "$45,000", category: "reach" },
-]
 
 const categoryConfig = {
   safe: {
     title: "Safe Schools",
-    description: "You strongly meet the requirements",
+    description: "You strongly meet the requirements (75%+ fit score)",
     icon: CheckCircle,
     color: "text-accent",
     bgColor: "bg-accent/10",
@@ -54,7 +45,7 @@ const categoryConfig = {
   },
   moderate: {
     title: "Moderate Schools",
-    description: "You meet most requirements",
+    description: "You meet most requirements (50-74% fit score)",
     icon: Target,
     color: "text-chart-4",
     bgColor: "bg-chart-4/10",
@@ -62,7 +53,7 @@ const categoryConfig = {
   },
   reach: {
     title: "Reach Schools",
-    description: "Competitive - consider strengthening your application",
+    description: "Competitive - consider strengthening your profile (<50% fit score)",
     icon: AlertTriangle,
     color: "text-chart-1",
     bgColor: "bg-chart-1/10",
@@ -71,21 +62,73 @@ const categoryConfig = {
 }
 
 export default function EligibilityPage() {
+  const [isPending, startTransition] = useTransition()
   const [showResults, setShowResults] = useState(false)
+  const [results, setResults] = useState<{
+    safeSchools: University[]
+    moderateSchools: University[]
+    reachSchools: University[]
+    summary: { safeCount: number; moderateCount: number; reachCount: number }
+  } | null>(null)
+  
   const [formData, setFormData] = useState({
     gpa: "",
     englishScore: "",
+    englishTestType: "IELTS" as "IELTS" | "TOEFL",
     budget: "",
-    country: "",
+    preferredCountries: [] as string[],
+    preferredFields: [] as string[],
+    degreeLevel: "Masters" as "Bachelors" | "Masters" | "PhD",
   })
 
-  const updateFormData = (field: string, value: string) => {
+  const updateFormData = (field: string, value: any) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
   }
 
-  const handleCheck = (e: React.FormEvent) => {
+  const toggleCountry = (country: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      preferredCountries: prev.preferredCountries.includes(country)
+        ? prev.preferredCountries.filter((c) => c !== country)
+        : [...prev.preferredCountries, country],
+    }))
+  }
+
+  const toggleField = (field: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      preferredFields: prev.preferredFields.includes(field)
+        ? prev.preferredFields.filter((f) => f !== field)
+        : [...prev.preferredFields, field],
+    }))
+  }
+
+  const handleCheck = async (e: React.FormEvent) => {
     e.preventDefault()
-    setShowResults(true)
+    
+    if (!formData.gpa || !formData.englishScore || !formData.budget) {
+      alert('Please fill in all required fields')
+      return
+    }
+
+    startTransition(async () => {
+      try {
+        const result = await checkEligibility({
+          gpa: parseFloat(formData.gpa),
+          englishScore: parseFloat(formData.englishScore),
+          englishTestType: formData.englishTestType,
+          budget: parseInt(formData.budget),
+          preferredCountries: formData.preferredCountries.length > 0 ? formData.preferredCountries : countries,
+          preferredFields: formData.preferredFields.length > 0 ? formData.preferredFields : fields,
+          degreeLevel: formData.degreeLevel,
+        })
+        setResults(result as any)
+        setShowResults(true)
+      } catch (error) {
+        console.error('Error checking eligibility:', error)
+        alert('Error checking eligibility. Please try again.')
+      }
+    })
   }
 
   const UniversityCard = ({ university }: { university: University }) => {
@@ -95,8 +138,7 @@ export default function EligibilityPage() {
         <CardContent className="p-4">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <h4 className="font-semibold text-foreground">{university.name}</h4>
-              <p className="text-sm text-accent">{university.program}</p>
+              <h4 className="font-semibold text-foreground">{university.universityName}</h4>
               <div className="flex flex-wrap items-center gap-3 mt-2 text-xs text-muted-foreground">
                 <span className="flex items-center gap-1">
                   <MapPin className="h-3 w-3" />
@@ -104,7 +146,11 @@ export default function EligibilityPage() {
                 </span>
                 <span className="flex items-center gap-1">
                   <DollarSign className="h-3 w-3" />
-                  {university.tuition}/year
+                  ${university.tuition}/year
+                </span>
+                <span className="flex items-center gap-1">
+                  <TrendingUp className="h-3 w-3" />
+                  {university.fitScore}% fit
                 </span>
               </div>
             </div>
@@ -112,16 +158,17 @@ export default function EligibilityPage() {
               {university.category === "safe" ? "Safe" : university.category === "moderate" ? "Moderate" : "Reach"}
             </Badge>
           </div>
-          <div className="mt-3 pt-3 border-t border-border grid grid-cols-2 gap-2 text-xs">
-            <div>
-              <span className="text-muted-foreground">Min GPA: </span>
-              <span className="font-medium text-foreground">{university.minGPA}</span>
-            </div>
-            <div>
-              <span className="text-muted-foreground">Min IELTS: </span>
-              <span className="font-medium text-foreground">{university.minIELTS}</span>
-            </div>
+          <div className="mt-3 pt-3 border-t border-border">
+            <p className="text-xs font-medium text-muted-foreground mb-2">Why this match:</p>
+            <ul className="text-xs space-y-1">
+              {university.reasons.slice(0, 3).map((reason, idx) => (
+                <li key={idx} className="text-foreground">• {reason}</li>
+              ))}
+            </ul>
           </div>
+          <Button variant="outline" size="sm" className="w-full mt-3">
+            View Details
+          </Button>
         </CardContent>
       </Card>
     )
@@ -130,7 +177,11 @@ export default function EligibilityPage() {
   const CategorySection = ({ category }: { category: CategoryType }) => {
     const config = categoryConfig[category]
     const Icon = config.icon
-    const universities = universityResults.filter((u) => u.category === category)
+    const universities = category === 'safe' ? results?.safeSchools : 
+                        category === 'moderate' ? results?.moderateSchools : 
+                        results?.reachSchools
+    
+    if (!universities || universities.length === 0) return null
 
     return (
       <div className="space-y-4">
@@ -141,6 +192,7 @@ export default function EligibilityPage() {
           <div>
             <h3 className="font-semibold text-foreground">{config.title}</h3>
             <p className="text-sm text-muted-foreground">{config.description}</p>
+            <p className="text-xs text-muted-foreground mt-1">{universities.length} universities found</p>
           </div>
         </div>
         <div className="grid gap-3">
@@ -161,14 +213,14 @@ export default function EligibilityPage() {
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/30 mb-6">
               <Sparkles className="h-4 w-4 text-accent" />
-              <span className="text-sm text-accent font-medium">AI-Powered Analysis</span>
+              <span className="text-sm text-accent font-medium">AI-Powered Matching Algorithm</span>
             </div>
             <h1 className="text-3xl sm:text-4xl font-semibold text-foreground mb-4 text-balance">
-              Check Your University Eligibility
+              AI University Eligibility Checker
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-pretty">
-              Enter your academic profile and preferences to see which universities you qualify for,
-              categorized into Safe, Moderate, and Reach schools.
+              Our intelligent matching algorithm compares your academic profile with real university requirements
+              and categorizes them into Safe, Moderate, and Reach schools based on your fit score.
             </p>
           </div>
 
@@ -181,59 +233,137 @@ export default function EligibilityPage() {
                   Your Profile
                 </CardTitle>
                 <CardDescription>
-                  Enter your details for personalized results
+                  Enter your details for AI-powered analysis
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleCheck} className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="gpa">GPA (on 4.0 scale)</Label>
+                    <Label htmlFor="gpa">GPA (on 4.0 scale) *</Label>
                     <Input
                       id="gpa"
+                      type="number"
+                      step="0.01"
+                      min="0"
+                      max="4"
                       placeholder="e.g., 3.5"
                       value={formData.gpa}
                       onChange={(e) => updateFormData("gpa", e.target.value)}
                     />
                   </div>
+
                   <div className="space-y-2">
-                    <Label htmlFor="englishScore">IELTS / English Score</Label>
+                    <Label htmlFor="englishTestType">English Test</Label>
+                    <Select
+                      value={formData.englishTestType}
+                      onValueChange={(value) => updateFormData("englishTestType", value)}
+                    >
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="IELTS">IELTS</SelectItem>
+                        <SelectItem value="TOEFL">TOEFL</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="englishScore">English Score *</Label>
                     <Input
                       id="englishScore"
+                      type="number"
+                      step="0.1"
                       placeholder="e.g., 7.0"
                       value={formData.englishScore}
                       onChange={(e) => updateFormData("englishScore", e.target.value)}
                     />
                   </div>
+
                   <div className="space-y-2">
-                    <Label htmlFor="budget">Budget (USD/year)</Label>
+                    <Label htmlFor="budget">Annual Budget (USD) *</Label>
                     <Input
                       id="budget"
+                      type="number"
                       placeholder="e.g., 40000"
                       value={formData.budget}
                       onChange={(e) => updateFormData("budget", e.target.value)}
                     />
                   </div>
+
                   <div className="space-y-2">
-                    <Label htmlFor="country">Preferred Country</Label>
+                    <Label htmlFor="degreeLevel">Degree Level</Label>
                     <Select
-                      value={formData.country}
-                      onValueChange={(value) => updateFormData("country", value)}
+                      value={formData.degreeLevel}
+                      onValueChange={(value) => updateFormData("degreeLevel", value)}
                     >
                       <SelectTrigger>
-                        <SelectValue placeholder="Select country" />
+                        <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        {countries.map((country) => (
-                          <SelectItem key={country} value={country}>
-                            {country}
-                          </SelectItem>
-                        ))}
+                        <SelectItem value="Bachelors">Bachelors</SelectItem>
+                        <SelectItem value="Masters">Masters</SelectItem>
+                        <SelectItem value="PhD">PhD</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
-                  <Button type="submit" className="w-full gap-2">
-                    <Sparkles className="h-4 w-4" />
-                    Check Eligibility
+
+                  <div className="space-y-2">
+                    <Label>Preferred Countries (select at least 1)</Label>
+                    <div className="grid grid-cols-2 gap-2">
+                      {countries.map((country) => (
+                        <button
+                          key={country}
+                          type="button"
+                          onClick={() => toggleCountry(country)}
+                          className={`text-xs px-2 py-1 rounded border transition-colors ${
+                            formData.preferredCountries.includes(country)
+                              ? "bg-accent text-accent-foreground border-accent"
+                              : "border-border hover:bg-secondary"
+                          }`}
+                        >
+                          {country}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label>Preferred Fields (select at least 1)</Label>
+                    <div className="grid grid-cols-2 gap-2">
+                      {fields.map((field) => (
+                        <button
+                          key={field}
+                          type="button"
+                          onClick={() => toggleField(field)}
+                          className={`text-xs px-2 py-1 rounded border transition-colors ${
+                            formData.preferredFields.includes(field)
+                              ? "bg-accent text-accent-foreground border-accent"
+                              : "border-border hover:bg-secondary"
+                          }`}
+                        >
+                          {field}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <Button 
+                    type="submit" 
+                    className="w-full gap-2"
+                    disabled={isPending}
+                  >
+                    {isPending ? (
+                      <>
+                        <Loader className="h-4 w-4 animate-spin" />
+                        Analyzing...
+                      </>
+                    ) : (
+                      <>
+                        <Sparkles className="h-4 w-4" />
+                        Check Eligibility
+                      </>
+                    )}
                   </Button>
                 </form>
               </CardContent>
@@ -248,14 +378,14 @@ export default function EligibilityPage() {
                       <Sparkles className="h-8 w-8 text-muted-foreground" />
                     </div>
                     <h3 className="text-lg font-medium text-foreground mb-2">
-                      Enter Your Details
+                      Ready to Find Your Match?
                     </h3>
                     <p className="text-muted-foreground max-w-sm mx-auto">
-                      Fill in the form on the left to see your personalized university eligibility results.
+                      Fill in the form on the left to get AI-powered university recommendations based on your academic profile and preferences.
                     </p>
                   </CardContent>
                 </Card>
-              ) : (
+              ) : results ? (
                 <div className="space-y-8">
                   <Card className="bg-primary text-primary-foreground">
                     <CardContent className="p-6">
@@ -264,9 +394,9 @@ export default function EligibilityPage() {
                           <Sparkles className="h-6 w-6" />
                         </div>
                         <div>
-                          <h3 className="font-semibold text-lg">Your Eligibility Analysis</h3>
+                          <h3 className="font-semibold text-lg">Your AI Analysis</h3>
                           <p className="text-primary-foreground/70 text-sm">
-                            Based on GPA: {formData.gpa || "3.5"} | IELTS: {formData.englishScore || "7.0"} | Budget: ${formData.budget || "40,000"}
+                            {results.summary.safeCount} Safe • {results.summary.moderateCount} Moderate • {results.summary.reachCount} Reach
                           </p>
                         </div>
                       </div>
@@ -277,7 +407,7 @@ export default function EligibilityPage() {
                   <CategorySection category="moderate" />
                   <CategorySection category="reach" />
                 </div>
-              )}
+              ) : null}
             </div>
           </div>
         </div>

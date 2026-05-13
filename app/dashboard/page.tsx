@@ -21,46 +21,30 @@ export default async function DashboardPage() {
     .eq('id', user.id)
     .single()
 
-  // Fetch saved programs with program and university details
-  const { data: savedPrograms } = await supabase
+  // Fetch counts for stats
+  const { count: savedCount } = await supabase
     .from('saved_programs')
-    .select(`
-      *,
-      program:programs(
-        *,
-        university:universities(*)
-      )
-    `)
+    .select('*', { count: 'exact', head: true })
     .eq('user_id', user.id)
-    .order('created_at', { ascending: false })
 
-  // Fetch applications with program and university details
   const { data: applications } = await supabase
     .from('applications')
-    .select(`
-      *,
-      program:programs(
-        *,
-        university:universities(*)
-      )
-    `)
+    .select('status, program_id, programs(deadline)')
     .eq('user_id', user.id)
-    .order('created_at', { ascending: false })
 
-  // Fetch documents
-  const { data: documents } = await supabase
+  const { count: docsCount } = await supabase
     .from('documents')
-    .select('*')
+    .select('*', { count: 'exact', head: true })
     .eq('user_id', user.id)
-    .order('uploaded_at', { ascending: false })
 
   // Calculate stats
   const stats = {
-    savedPrograms: savedPrograms?.length || 0,
+    savedPrograms: savedCount || 0,
     applications: applications?.length || 0,
     accepted: applications?.filter(a => a.status === 'accepted').length || 0,
     deadlines: applications?.filter(a => {
-      const deadline = a.program?.deadline
+      const program = a.programs as { deadline?: string } | null
+      const deadline = program?.deadline
       if (!deadline) return false
       const deadlineDate = new Date(deadline)
       const now = new Date()
@@ -84,12 +68,12 @@ export default async function DashboardPage() {
 
       <div className="grid gap-6 lg:grid-cols-3">
         <div className="lg:col-span-2 space-y-6">
-          <SavedPrograms programs={savedPrograms || []} />
-          <ApplicationTracker applications={applications || []} />
+          <SavedPrograms />
+          <ApplicationTracker />
         </div>
         <div className="space-y-6">
           <ProfileProgress profile={profile} />
-          <DocumentUpload documents={documents || []} userId={user.id} />
+          <DocumentUpload />
         </div>
       </div>
     </div>
