@@ -64,6 +64,7 @@ const categoryConfig = {
 export default function EligibilityPage() {
   const [isPending, startTransition] = useTransition()
   const [showResults, setShowResults] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const [results, setResults] = useState<{
     safeSchools: University[]
     moderateSchools: University[]
@@ -112,6 +113,7 @@ export default function EligibilityPage() {
     }
 
     startTransition(async () => {
+      setError(null)
       try {
         const result = await checkEligibility({
           gpa: parseFloat(formData.gpa),
@@ -125,8 +127,7 @@ export default function EligibilityPage() {
         setResults(result as any)
         setShowResults(true)
       } catch (error) {
-        console.error('Error checking eligibility:', error)
-        alert('Error checking eligibility. Please try again.')
+        setError('Unable to check eligibility. Please try again.')
       }
     })
   }
@@ -371,6 +372,11 @@ export default function EligibilityPage() {
 
             {/* Results */}
             <div className="lg:col-span-2">
+              {error && (
+                <div className="mb-4 p-4 rounded-lg border border-destructive/30 bg-destructive/10 text-destructive text-sm">
+                  {error}
+                </div>
+              )}
               {!showResults ? (
                 <Card className="h-full flex items-center justify-center min-h-[400px]">
                   <CardContent className="text-center py-12">
