@@ -12,6 +12,9 @@ import {
   Settings,
   LogOut,
   Bell,
+  Globe,
+  Users,
+  Search,
 } from "lucide-react"
 
 import {
@@ -32,26 +35,13 @@ import { signOut, getUser, getProfile } from "@/lib/actions/auth"
 import type { User as SupabaseUser } from "@supabase/supabase-js"
 
 const mainNavItems = [
-  {
-    title: "Dashboard",
-    href: "/dashboard",
-    icon: LayoutDashboard,
-  },
-  {
-    title: "Saved Programs",
-    href: "/dashboard",
-    icon: GraduationCap,
-  },
-  {
-    title: "Applications",
-    href: "/dashboard",
-    icon: FileText,
-  },
-  {
-    title: "Documents",
-    href: "/dashboard",
-    icon: Upload,
-  },
+  { title: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+  { title: "Find Universities", href: "/programs", icon: Search },
+  { title: "Saved Programs", href: "/dashboard", icon: GraduationCap },
+  { title: "Applications", href: "/dashboard", icon: FileText },
+  { title: "Documents", href: "/dashboard", icon: Upload },
+  { title: "Visa Guide", href: "/visa", icon: Globe },
+  { title: "Community", href: "/community", icon: Users },
 ]
 
 const secondaryNavItems = [
@@ -117,7 +107,7 @@ export function DashboardSidebar() {
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
             <GraduationCap className="h-5 w-5 text-primary-foreground" />
           </div>
-          <span className="text-xl font-semibold text-foreground">Edulynx</span>
+          <span className="text-xl font-semibold text-foreground">EduLynx</span>
         </Link>
       </SidebarHeader>
       <SidebarSeparator />
