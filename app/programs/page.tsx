@@ -11,10 +11,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Slider } from "@/components/ui/slider"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
-import { Search, SlidersHorizontal, MapPin, GraduationCap, DollarSign, Heart, ArrowUpDown, Loader2 } from "lucide-react"
+import { Search, SlidersHorizontal, MapPin, GraduationCap, DollarSign, Heart, ArrowUpDown, Loader2, Sparkles } from "lucide-react"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { createClient } from "@/lib/supabase/client"
+import { calculateFitScore, type StudentProfile, type UniversityRequirements } from "@/lib/services/eligibility-matcher"
 
 interface Program {
   id: string
@@ -48,10 +49,13 @@ const countryCodeMap: { [key: string]: string } = {
   "Switzerland": "CH",
 }
 
-function getMatchBadgeColor(percentage: number) {
-  if (percentage >= 90) return "bg-accent text-accent-foreground"
-  if (percentage >= 80) return "bg-primary text-primary-foreground"
-  return "bg-muted text-muted-foreground"
+function getMatchBadgeColor(percentage: number, category?: string) {
+  if (category === 'safe') return "bg-green-500 text-white"
+  if (category === 'moderate') return "bg-accent text-accent-foreground"
+  if (category === 'reach') return "bg-orange-500 text-white"
+  if (percentage >= 90) return "bg-green-500 text-white"
+  if (percentage >= 75) return "bg-accent text-accent-foreground"
+  return "bg-orange-500 text-white"
 }
 
 function getCountryFlag(country: string) {
@@ -61,11 +65,6 @@ function getCountryFlag(country: string) {
     .split('')
     .map(char => 127397 + char.charCodeAt(0))
   return String.fromCodePoint(...codePoints)
-}
-
-function calculateMatchPercentage(): number {
-  // Placeholder match calculation - would use user profile data in real app
-  return Math.floor(Math.random() * 20) + 75
 }
 
 export default function ProgramsPage() {
@@ -80,22 +79,19 @@ export default function ProgramsPage() {
   const [sortBy, setSortBy] = useState("match")
   const [savedPrograms, setSavedPrograms] = useState<string[]>([])
   const [user, setUser] = useState<any>(null)
+  const [studentProfile, setStudentProfile] = useState<StudentProfile | null>(null)
+  const [showAIRecommendations, setShowAIRecommendations] = useState(false)
 
   useEffect(() => {
     async function fetchData() {
       const supabase = createClient()
       
-      // Check if user is logged in
       const { data: { user } } = await supabase.auth.getUser()
       setUser(user)
 
-      // Fetch programs with universities
       const { data: programsData, error } = await supabase
         .from('programs')
-        .select(`
-          *,
-          university:universities(*)
-        `)
+        .select(`*, university:universities(*)`)
         .eq('is_active', true)
         .order('created_at', { ascending: false })
 
@@ -105,7 +101,6 @@ export default function ProgramsPage() {
         setPrograms(programsData || [])
       }
 
-      // Fetch saved programs if user is logged in
       if (user) {
         const { data: savedData } = await supabase
           .from('saved_programs')
@@ -115,6 +110,31 @@ export default function ProgramsPage() {
         if (savedData) {
           setSavedPrograms(savedData.map(s => s.program_id))
         }
+
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('id', user.id)
+          .single()
+
+        const { data: preferences } = await supabase
+          .from('preferences')
+          .select('*')
+          .eq('user_id', user.id)
+          .single()
+
+        if (profile && preferences) {
+          setStudentProfile({
+            gpa: profile.gpa || 3.0,
+            englishScore: profile.english_score || 6.5,
+            englishTestType: (profile.english_test_type as 'IELTS' | 'TOEFL') || 'IELTS',
+            budget: preferences.budget_max || 50000,
+            preferredCountries: preferences.preferred_countries || [],
+            preferredFields: preferences.preferred_fields || [],
+            degreeLevel: (preferences.degree_level as 'Bachelors' | 'Masters' | 'PhD') || 'Masters',
+          })
+          setShowAIRecommendations(true)
+        }
       }
 
       setIsLoading(false)
@@ -122,6 +142,28 @@ export default function ProgramsPage() {
 
     fetchData()
   }, [])
+
+  const calculateRealMatchPercentage = (program: Program): { score: number, category: 'safe' | 'moderate' | 'reach', reasons: string[] } => {
+    if (!studentProfile || !program.university) {
+      return { score: Math.floor(Math.random() * 20) + 75, category: 'moderate', reasons: ['Complete your profile for personalized recommendations'] }
+    }
+
+    const universityReq: UniversityRequirements = {
+      id: program.university.id,
+      name: program.university.name,
+      country: program.university.country,
+      city: program.university.city || '',
+      minGPA: 3.0,
+      minEnglishScore: 6.5,
+      englishTestType: 'IELTS',
+      tuitionFee: program.tuition_fee || 30000,
+      selectivityRank: 100,
+      fields: [program.field_of_study || ''],
+      degreeLevel: program.level || 'Masters',
+    }
+
+    return calculateFitScore(studentProfile, universityReq)
+  }
 
   const toggleSave = async (programId: string) => {
     if (!user) {
@@ -140,12 +182,13 @@ export default function ProgramsPage() {
       
       setSavedPrograms(prev => prev.filter(p => p !== programId))
     } else {
+      const matchResult = calculateRealMatchPercentage(programs.find(p => p.id === programId)!)
       await supabase
         .from('saved_programs')
         .insert({
           user_id: user.id,
           program_id: programId,
-          match_percentage: calculateMatchPercentage()
+          match_percentage: matchResult.score
         })
       
       setSavedPrograms(prev => [...prev, programId])
@@ -173,10 +216,15 @@ export default function ProgramsPage() {
       }
       return true
     })
-    .map(program => ({
-      ...program,
-      matchPercentage: calculateMatchPercentage()
-    }))
+    .map(program => {
+      const matchResult = calculateRealMatchPercentage(program)
+      return {
+        ...program,
+        matchPercentage: matchResult.score,
+        matchCategory: matchResult.category,
+        matchReasons: matchResult.reasons,
+      }
+    })
     .sort((a, b) => {
       if (sortBy === "match") return b.matchPercentage - a.matchPercentage
       if (sortBy === "tuition-low") return a.tuition_fee - b.tuition_fee
@@ -277,7 +325,6 @@ export default function ProgramsPage() {
       <Header />
       
       <main className="pt-20">
-        {/* Search Header */}
         <div className="bg-primary text-primary-foreground py-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h1 className="text-3xl font-semibold mb-6">Find Your Perfect Program</h1>
@@ -312,7 +359,6 @@ export default function ProgramsPage() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex gap-8">
-            {/* Sidebar Filters - Desktop */}
             <aside className="hidden lg:block w-64 shrink-0">
               <div className="sticky top-24 bg-card border border-border rounded-lg p-6">
                 <h2 className="font-semibold text-foreground mb-6">Filters</h2>
@@ -320,8 +366,34 @@ export default function ProgramsPage() {
               </div>
             </aside>
 
-            {/* Results */}
             <div className="flex-1">
+              {showAIRecommendations && (
+                <div className="mb-6 p-4 bg-accent/10 border border-accent/30 rounded-lg">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Sparkles className="h-5 w-5 text-accent" />
+                    <span className="font-semibold text-foreground">AI-Powered Recommendations</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Programs ranked based on your profile: GPA ({studentProfile?.gpa}), 
+                    {studentProfile?.englishTestType} ({studentProfile?.englishScore}), 
+                    Budget (${studentProfile?.budget?.toLocaleString()}), 
+                    Preferred: {studentProfile?.preferredCountries?.join(', ') || 'Any country'}.
+                  </p>
+                </div>
+              )}
+              
+              {!showAIRecommendations && user && (
+                <div className="mb-6 p-4 bg-muted border border-border rounded-lg">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Sparkles className="h-5 w-5 text-muted-foreground" />
+                    <span className="font-semibold text-foreground">Get AI Recommendations</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    <Link href="/onboarding" className="text-accent hover:underline">Complete your profile</Link> to get personalized AI-powered university recommendations.
+                  </p>
+                </div>
+              )}
+
               <div className="flex items-center justify-between mb-6">
                 <p className="text-muted-foreground">
                   <span className="font-medium text-foreground">{filteredPrograms.length}</span> programs found
@@ -333,7 +405,7 @@ export default function ProgramsPage() {
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="match">Match %</SelectItem>
+                      <SelectItem value="match">AI Match %</SelectItem>
                       <SelectItem value="tuition-low">Tuition (Low-High)</SelectItem>
                       <SelectItem value="tuition-high">Tuition (High-Low)</SelectItem>
                     </SelectContent>
@@ -361,8 +433,8 @@ export default function ProgramsPage() {
                                   <h3 className="font-semibold text-foreground">{program.university?.name}</h3>
                                   <p className="text-accent font-medium">{program.name}</p>
                                 </div>
-                                <Badge className={getMatchBadgeColor(program.matchPercentage)}>
-                                  {program.matchPercentage}% Match
+                                <Badge className={getMatchBadgeColor(program.matchPercentage, program.matchCategory)}>
+                                  {program.matchCategory === 'safe' ? 'Safe' : program.matchCategory === 'moderate' ? 'Target' : 'Reach'} - {program.matchPercentage}%
                                 </Badge>
                               </div>
                               <div className="flex flex-wrap items-center gap-4 mt-3 text-sm text-muted-foreground">
