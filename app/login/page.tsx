@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Eye, EyeOff, Loader2 } from "lucide-react"
-import { createClient } from "@/lib/supabase/client"
+import { signIn, signUp } from "@/lib/actions/auth"
 
 export default function LoginPage() {
   const router = useRouter()
@@ -32,34 +32,19 @@ export default function LoginPage() {
     setError(null)
     setSuccessMessage(null)
 
-    try {
-      const supabase = createClient()
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: loginData.email,
-        password: loginData.password
-      })
+    const result = await signIn({
+      email: loginData.email,
+      password: loginData.password
+    })
 
-      if (error) {
-        if (error.message.includes('Invalid login credentials')) {
-          setError('Invalid email or password. Please try again.')
-        } else if (error.message.includes('Email not confirmed')) {
-          setError('Please confirm your email before logging in. Check your inbox.')
-        } else {
-          setError(error.message)
-        }
-        setIsLoading(false)
-        return
-      }
-
-      if (data.user && data.session) {
-        // Use window.location for a full page reload to ensure cookies are set
-        window.location.href = "/dashboard"
-        return
-      }
-    } catch (err) {
-      console.log('[v0] Login error:', err)
-      setError('An unexpected error occurred. Please try again.')
+    if (result.error) {
+      setError(result.error)
       setIsLoading(false)
+      return
+    }
+
+    if (result.success) {
+      window.location.href = "/dashboard"
     }
   }
 
@@ -67,6 +52,7 @@ export default function LoginPage() {
     e.preventDefault()
     setIsLoading(true)
     setError(null)
+    setSuccessMessage(null)
 
     if (signupData.password !== signupData.confirmPassword) {
       setError("Passwords do not match")
@@ -80,29 +66,23 @@ export default function LoginPage() {
       return
     }
 
-    const supabase = createClient()
-    const { error } = await supabase.auth.signUp({
+    const result = await signUp({
       email: signupData.email,
       password: signupData.password,
-      options: {
-        emailRedirectTo: process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL ?? 
-          `${window.location.origin}/auth/callback`,
-        data: {
-          first_name: signupData.firstName,
-          last_name: signupData.lastName,
-          role: 'student'
-        }
-      }
+      firstName: signupData.firstName,
+      lastName: signupData.lastName
     })
 
-    if (error) {
-      setError(error.message)
+    if (result.error) {
+      setError(result.error)
       setIsLoading(false)
       return
     }
 
-    setSuccessMessage("Check your email to confirm your account")
-    setIsLoading(false)
+    if (result.success) {
+      setSuccessMessage(result.message || "Check your email to confirm your account")
+      setIsLoading(false)
+    }
   }
 
   return (

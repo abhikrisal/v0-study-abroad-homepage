@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { 
   DropdownMenu, 
@@ -13,37 +12,23 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Menu, X, User, LogOut, LayoutDashboard } from "lucide-react"
-import { createClient } from "@/lib/supabase/client"
+import { signOut, getUser } from "@/lib/actions/auth"
 import type { User as SupabaseUser } from "@supabase/supabase-js"
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [user, setUser] = useState<SupabaseUser | null>(null)
   const [loading, setLoading] = useState(true)
-  const router = useRouter()
 
   useEffect(() => {
-    const supabase = createClient()
-    
-    // Get initial user
-    supabase.auth.getUser().then(({ data: { user } }) => {
+    getUser().then((user) => {
       setUser(user)
       setLoading(false)
     })
-
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null)
-    })
-
-    return () => subscription.unsubscribe()
   }, [])
 
   const handleLogout = async () => {
-    const supabase = createClient()
-    await supabase.auth.signOut()
-    router.push('/')
-    router.refresh()
+    await signOut()
   }
 
   const getInitials = () => {

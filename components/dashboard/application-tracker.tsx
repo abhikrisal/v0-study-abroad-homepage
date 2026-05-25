@@ -5,7 +5,7 @@ import { Clock, CheckCircle, Send, AlertCircle, ChevronRight, Loader2, FileText 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { createClient } from "@/lib/supabase/client"
+import { getApplications } from "@/lib/actions/programs"
 
 type ApplicationStatus = "submitted" | "in_review" | "accepted" | "rejected" | "draft"
 
@@ -56,32 +56,8 @@ export function ApplicationTracker() {
 
   useEffect(() => {
     async function fetchApplications() {
-      const supabase = createClient()
-      const { data: { user } } = await supabase.auth.getUser()
-      
-      if (!user) {
-        setLoading(false)
-        return
-      }
-
-      const { data } = await supabase
-        .from("applications")
-        .select(`
-          id,
-          status,
-          submitted_at,
-          updated_at,
-          programs (
-            name,
-            universities (
-              name
-            )
-          )
-        `)
-        .eq("user_id", user.id)
-        .order("updated_at", { ascending: false })
-
-      setApplications((data as Application[]) || [])
+      const data = await getApplications()
+      setApplications(data as Application[])
       setLoading(false)
     }
 

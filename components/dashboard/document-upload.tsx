@@ -15,8 +15,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { createClient } from "@/lib/supabase/client"
-import { deleteDocument } from "@/lib/actions/documents"
+import { getDocuments, deleteDocument } from "@/lib/actions/documents"
 
 type DocumentStatus = "verified" | "pending" | "rejected"
 
@@ -67,21 +66,8 @@ export function DocumentUpload() {
   const [deletingId, setDeletingId] = useState<string | null>(null)
 
   const fetchDocuments = useCallback(async () => {
-    const supabase = createClient()
-    const { data: { user } } = await supabase.auth.getUser()
-    
-    if (!user) {
-      setLoading(false)
-      return
-    }
-
-    const { data } = await supabase
-      .from("documents")
-      .select("*")
-      .eq("user_id", user.id)
-      .order("uploaded_at", { ascending: false })
-
-    setDocuments((data as Document[]) || [])
+    const data = await getDocuments()
+    setDocuments(data as Document[])
     setLoading(false)
   }, [])
 
