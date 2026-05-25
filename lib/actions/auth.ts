@@ -89,3 +89,25 @@ export async function getProfile() {
 
   return profile
 }
+
+export async function signUpWithGoogle() {
+  const supabase = await createClient()
+
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL ?? 
+        `${process.env.NEXT_PUBLIC_SITE_URL || 'https://v0-study-abroad-homepage.vercel.app'}/auth/callback`,
+      queryParams: {
+        access_type: 'offline',
+        prompt: 'consent',
+      }
+    }
+  })
+
+  if (error) {
+    return { error: error.message }
+  }
+
+  return { data }
+}
