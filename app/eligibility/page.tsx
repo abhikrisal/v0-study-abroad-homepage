@@ -65,6 +65,7 @@ export default function EligibilityPage() {
   const [isPending, startTransition] = useTransition()
   const [showResults, setShowResults] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [validationError, setValidationError] = useState<string | null>(null)
   const [results, setResults] = useState<{
     safeSchools: University[]
     moderateSchools: University[]
@@ -106,9 +107,21 @@ export default function EligibilityPage() {
 
   const handleCheck = async (e: React.FormEvent) => {
     e.preventDefault()
+    setValidationError(null)
+    setError(null)
     
     if (!formData.gpa || !formData.englishScore || !formData.budget) {
-      alert('Please fill in all required fields')
+      setValidationError('Please fill in GPA, English Score, and Budget fields')
+      return
+    }
+
+    if (parseFloat(formData.gpa) > 4 || parseFloat(formData.gpa) < 0) {
+      setValidationError('GPA must be between 0 and 4.0')
+      return
+    }
+
+    if (parseFloat(formData.englishScore) > 9 || parseFloat(formData.englishScore) < 0) {
+      setValidationError('English score must be between 0 and 9.0')
       return
     }
 
@@ -348,6 +361,12 @@ export default function EligibilityPage() {
                       ))}
                     </div>
                   </div>
+
+                  {validationError && (
+                    <div className="p-3 rounded-lg border border-destructive/30 bg-destructive/10 text-destructive text-sm">
+                      {validationError}
+                    </div>
+                  )}
 
                   <Button 
                     type="submit" 
