@@ -1,0 +1,123 @@
+═══════════════════════════════════════════════════════════════════════════════
+                         OFFICIAL ACADEMIC TRANSCRIPT
+                           DELHI UNIVERSITY, INDIA
+                      Department of Computer Science
+═══════════════════════════════════════════════════════════════════════════════
+
+STUDENT INFORMATION
+───────────────────────────────────────────────────────────────────────────────
+Name:               Priya Sharma
+Student ID:         DU-2019-CS-4521
+Date of Birth:      15 March 2001
+Program:            Bachelor of Technology in Computer Science
+Enrollment Date:    August 2019
+Graduation Date:    May 2023
+Status:             Graduated with Honors
+
+═══════════════════════════════════════════════════════════════════════════════
+                              ACADEMIC RECORD
+═══════════════════════════════════════════════════════════════════════════════
+
+YEAR 1 - SEMESTER 1 (Fall 2019)
+───────────────────────────────────────────────────────────────────────────────
+Course Code    Course Name                              Credits    Grade
+CS101          Introduction to Programming              4          A
+MA101          Calculus I                               4          A-
+PH101          Physics for Engineers                    3          B+
+CS102          Digital Logic Design                     3          A
+ENG101         Technical Communication                  2          A
+───────────────────────────────────────────────────────────────────────────────
+Semester GPA: 3.75                               Total Credits: 16
+
+YEAR 1 - SEMESTER 2 (Spring 2020)
+───────────────────────────────────────────────────────────────────────────────
+Course Code    Course Name                              Credits    Grade
+CS103          Data Structures                          4          A
+MA102          Calculus II                              4          A
+CS104          Computer Organization                    3          A-
+MA103          Linear Algebra                           3          A
+ENG102         Professional Ethics                      2          A-
+───────────────────────────────────────────────────────────────────────────────
+Semester GPA: 3.85                               Total Credits: 16
+
+YEAR 2 - SEMESTER 3 (Fall 2020)
+───────────────────────────────────────────────────────────────────────────────
+Course Code    Course Name                              Credits    Grade
+CS201          Algorithms                               4          A
+CS202          Object-Oriented Programming              4          A
+MA201          Probability & Statistics                 3          A-
+CS203          Database Systems                         3          A
+CS204          Software Engineering                     3          B+
+───────────────────────────────────────────────────────────────────────────────
+Semester GPA: 3.80                               Total Credits: 17
+
+YEAR 2 - SEMESTER 4 (Spring 2021)
+───────────────────────────────────────────────────────────────────────────────
+Course Code    Course Name                              Credits    Grade
+CS205          Operating Systems                        4          A
+CS206          Computer Networks                        4          A-
+CS207          Theory of Computation                    3          A
+MA202          Discrete Mathematics                     3          A
+CS208          Web Development                          3          A
+───────────────────────────────────────────────────────────────────────────────
+Semester GPA: 3.88                               Total Credits: 17
+
+YEAR 3 - SEMESTER 5 (Fall 2021)
+───────────────────────────────────────────────────────────────────────────────
+Course Code    Course Name                              Credits    Grade
+CS301          Machine Learning                         4          A
+CS302          Artificial Intelligence                  4          A
+CS303          Compiler Design                          3          A-
+CS304          Computer Graphics                        3          B+
+CS305          Information Security                     3          A
+───────────────────────────────────────────────────────────────────────────────
+Semester GPA: 3.82                               Total Credits: 17
+
+YEAR 3 - SEMESTER 6 (Spring 2022)
+───────────────────────────────────────────────────────────────────────────────
+Course Code    Course Name                              Credits    Grade
+CS306          Deep Learning                            4          A
+CS307          Natural Language Processing              3          A
+CS308          Cloud Computing                          3          A
+CS309          Big Data Analytics                       3          A-
+CS310          Mobile App Development                   3          A
+───────────────────────────────────────────────────────────────────────────────
+Semester GPA: 3.92                               Total Credits: 16
+
+YEAR 4 - SEMESTER 7 (Fall 2022)
+───────────────────────────────────────────────────────────────────────────────
+Course Code    Course Name                              Credits    Grade
+CS401          Advanced Machine Learning                4          A
+CS402          Computer Vision                          3          A
+CS403          Distributed Systems                      3          A-
+CS404          Research Methodology                     2          A
+CS405          Industry Internship                      4          A
+───────────────────────────────────────────────────────────────────────────────
+Semester GPA: 3.90                               Total Credits: 16
+
+YEAR 4 - SEMESTER 8 (Spring 2023)
+───────────────────────────────────────────────────────────────────────────────
+Course Code    Course Name                              Credits    Grade
+CS406          Capstone Project                         6          A
+CS407          Advanced Topics in AI                    3          A
+CS408          Entrepreneurship                         2          A-
+CS409          Technical Seminar                        2          A
+───────────────────────────────────────────────────────────────────────────────
+Semester GPA: 3.95                               Total Credits: 13
+
+═══════════════════════════════════════════════════════════════════════════════
+                              SUMMARY
+═══════════════════════════════════════════════════════════════════════════════
+Total Credits Earned:        128
+Cumulative GPA:              3.85 / 4.00
+Class Rank:                  8 / 245
+Honors:                      Magna Cum Laude
+
+IELTS Score:                 7.5 (Listening: 8.0, Reading: 7.5, Writing: 7.0, Speaking: 7.5)
+GRE Score:                   325 (Verbal: 160, Quantitative: 165, AWA: 4.5)
+
+═══════════════════════════════════════════════════════════════════════════════
+This transcript is official when bearing the university seal and registrar signature.
+Issue Date: June 15, 2023
+Document ID: DU-TR-2023-089521
+═══════════════════════════════════════════════════════════════════════════════
