@@ -34,9 +34,9 @@ interface Program {
   }
 }
 
-const countries = ["All Countries", "Canada", "United Kingdom", "Australia", "Germany", "Switzerland"]
-const fieldsOfStudy = ["All Fields", "Computer Science", "Data Science", "Engineering", "Business"]
-const programLevels = ["All Levels", "Bachelors", "Masters", "Doctoral"]
+const countries = ["All Countries", "United States", "United Kingdom", "Canada", "Australia", "Germany", "France", "Netherlands", "Singapore", "Japan", "South Korea", "China", "India", "Switzerland", "Ireland", "New Zealand", "Sweden", "Denmark", "Norway", "Finland", "Belgium", "Spain", "Italy", "Malaysia", "Hong Kong", "Brazil"]
+const fieldsOfStudy = ["All Fields", "Computer Science", "Data Science", "Engineering", "Business", "Medicine", "Law", "Arts", "Social Sciences", "Architecture", "Psychology", "Economics"]
+const programLevels = ["All Levels", "Bachelors", "Masters", "PhD"]
 
 const countryCodeMap: { [key: string]: string } = {
   "Canada": "CA",
@@ -47,6 +47,23 @@ const countryCodeMap: { [key: string]: string } = {
   "Netherlands": "NL",
   "Singapore": "SG",
   "Switzerland": "CH",
+  "France": "FR",
+  "Japan": "JP",
+  "South Korea": "KR",
+  "China": "CN",
+  "India": "IN",
+  "Ireland": "IE",
+  "New Zealand": "NZ",
+  "Sweden": "SE",
+  "Denmark": "DK",
+  "Norway": "NO",
+  "Finland": "FI",
+  "Belgium": "BE",
+  "Spain": "ES",
+  "Italy": "IT",
+  "Malaysia": "MY",
+  "Hong Kong": "HK",
+  "Brazil": "BR",
 }
 
 function getMatchBadgeColor(percentage: number, category?: string) {

@@ -136,14 +136,20 @@ export default function CommunityPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-10">
             <span className="inline-block px-4 py-1.5 rounded-full bg-accent/20 text-accent text-sm font-semibold mb-4">
-              Student Community
+              Student Community Forum
             </span>
             <h1 className="text-4xl sm:text-5xl font-bold text-primary-foreground tracking-tight text-balance">
               Learn from Students Who&apos;ve Been There
             </h1>
             <p className="mt-4 text-lg text-primary-foreground/70">
-              Ask questions, share your journey, and get real advice from students around the world.
+              Browse real experiences from students studying abroad. Find answers about visas, scholarships, accommodation, and university life — or share your own journey to help others.
             </p>
+            <div className="mt-6 flex flex-wrap justify-center gap-3 text-sm text-primary-foreground/60">
+              <span className="px-3 py-1 bg-primary-foreground/10 rounded-full">Read success stories</span>
+              <span className="px-3 py-1 bg-primary-foreground/10 rounded-full">Get visa tips</span>
+              <span className="px-3 py-1 bg-primary-foreground/10 rounded-full">Find scholarship advice</span>
+              <span className="px-3 py-1 bg-primary-foreground/10 rounded-full">Ask questions</span>
+            </div>
           </div>
           <div className="flex justify-center gap-10">
             {stats.map((s) => (

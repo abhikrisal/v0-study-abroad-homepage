@@ -102,7 +102,7 @@ export function Header() {
                   <Link href="/login">Login</Link>
                 </Button>
                 <Button size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90" asChild>
-                  <Link href="/onboarding">Get Started</Link>
+                  <Link href="/signup">Sign Up</Link>
                 </Button>
               </>
             )}
@@ -145,7 +145,7 @@ export function Header() {
                     <Link href="/login" onClick={() => setIsMenuOpen(false)}>Login</Link>
                   </Button>
                   <Button size="sm" className="bg-accent text-accent-foreground" asChild>
-                    <Link href="/onboarding" onClick={() => setIsMenuOpen(false)}>Get Started</Link>
+                    <Link href="/signup" onClick={() => setIsMenuOpen(false)}>Sign Up</Link>
                   </Button>
                 </>
               )}
