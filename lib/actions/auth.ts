@@ -31,7 +31,17 @@ export async function signUp(data: {
     return { error: error.message }
   }
 
-  return { success: true, message: 'Check your email to confirm your account' }
+  // Auto-sign in immediately after signup (email auto-confirmed via DB trigger)
+  const { error: signInError } = await supabase.auth.signInWithPassword({
+    email: data.email,
+    password: data.password,
+  })
+
+  if (signInError) {
+    return { success: true, message: 'Account created! Please log in.', autoLoggedIn: false }
+  }
+
+  return { success: true, message: 'Account created successfully!', autoLoggedIn: true }
 }
 
 export async function signIn(data: { email: string; password: string }) {

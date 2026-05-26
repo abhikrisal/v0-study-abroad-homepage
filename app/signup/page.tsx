@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -11,6 +12,7 @@ import { Loader2, CheckCircle, AlertCircle } from "lucide-react"
 import { signUp } from "@/lib/actions/auth"
 
 export default function SignUpPage() {
+  const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
@@ -73,8 +75,14 @@ export default function SignUpPage() {
       if (result.error) {
         setError(result.error)
       } else {
-        setSuccess(true)
-        setFormData({ firstName: "", lastName: "", email: "", password: "", confirmPassword: "" })
+        if ((result as any).autoLoggedIn) {
+          // Redirect to dashboard immediately
+          router.push("/dashboard")
+          router.refresh()
+        } else {
+          setSuccess(true)
+          setFormData({ firstName: "", lastName: "", email: "", password: "", confirmPassword: "" })
+        }
       }
     } catch (err: any) {
       setError(err?.message || "An error occurred. Please try again.")
@@ -91,12 +99,12 @@ export default function SignUpPage() {
             <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
               <CheckCircle className="h-8 w-8 text-green-600" />
             </div>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Signup Successful!</h2>
+            <h2 className="text-2xl font-bold text-foreground mb-2">Account Created!</h2>
             <p className="text-muted-foreground mb-6">
-              Please check your email to confirm your account. You should receive a confirmation link shortly.
+              Your account has been created successfully. You can now log in to continue.
             </p>
             <Button asChild className="w-full">
-              <Link href="/login">Back to Login</Link>
+              <Link href="/login">Go to Login</Link>
             </Button>
           </CardContent>
         </Card>
