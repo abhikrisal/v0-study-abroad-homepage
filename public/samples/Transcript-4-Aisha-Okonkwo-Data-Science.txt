@@ -1,0 +1,262 @@
+================================================================================
+                     ACADEMIC TRANSCRIPT
+================================================================================
+
+Institution: Imperial College London
+Program: Master of Science in Applied Statistics
+Degree Awarded: September 2021
+Overall Grade: Distinction (84.2%) | Classification: Top 5%
+
+Student: Aisha Okonkwo
+Student ID: ICL2020ST7821
+Address: London, United Kingdom
+Contact: +234-8012345678
+
+================================================================================
+ACADEMIC PROFILE
+================================================================================
+
+Degree Awarded: Master of Science in Applied Statistics
+Faculty: Faculty of Natural Sciences
+Program: Full-Time (12 months)
+Academic Year: Sept 2020 - Sept 2021
+Mode: Taught Masters Program
+
+Overall Grade: Distinction (84.2%)
+Academic Standing: Top 5% of cohort
+Grade Classification: Distinction
+
+================================================================================
+DETAILED COURSE GRADES
+================================================================================
+
+TERM 1 (September - December 2020):
+
+Core Courses:
+Course Code | Course Title                              | Credits | Grade | Mark
+STAT50001   | Statistical Foundations                  | 7.5     | A+    | 92
+STAT50002   | Probability Theory                       | 7.5     | A+    | 89
+STAT50003   | Statistical Inference I                  | 7.5     | A+    | 91
+STAT50004   | Computational Statistics                 | 7.5     | A     | 87
+                                                Term 1 Average: 89.75%
+
+TERM 2 (January - April 2021):
+
+Advanced Courses:
+STAT50005   | Statistical Inference II                 | 7.5     | A+    | 90
+STAT50006   | Time Series Analysis                     | 7.5     | A+    | 93
+STAT50007   | Bayesian Methods & Computational         | 7.5     | A+    | 92
+            | Inference
+STAT50008   | Statistical Modelling in Practice        | 7.5     | A     | 86
+                                                Term 2 Average: 90.25%
+
+TERM 3 (May - September 2021):
+
+Specialist Courses & Thesis:
+STAT50009   | Machine Learning & Data Mining           | 7.5     | A+    | 94
+STAT50010   | Applied Multivariate Analysis            | 7.5     | A+    | 91
+STAT50011   | MSc Thesis Project (6 months)            | 30      | A+    | 92
+                                                Term 3 Average: 92.33%
+
+                                    OVERALL PROGRAM AVERAGE: 90.78%
+                                    FINAL GRADE: Distinction 84.2%
+
+================================================================================
+MASTER'S THESIS PROJECT
+================================================================================
+
+Title: "Predictive Modeling of Tuberculosis Treatment Outcomes in Sub-Saharan 
+        Africa: A Bayesian Statistical Approach"
+
+Supervisor: Prof. Richard Jones, Department of Statistics
+Co-Supervisor: Dr. Sarah Williams, Institute of Global Health
+Status: Completed with Distinction
+Thesis Grade: 92/100
+
+Research Objectives:
+- Develop Bayesian statistical models to predict TB treatment outcomes
+- Integrate patient demographic, clinical, and socioeconomic factors
+- Identify key drivers of treatment success and failure in low-resource settings
+
+Methodology:
+- Analyzed 2,500+ patient records from 12 Sub-Saharan African clinics
+- Developed hierarchical Bayesian models
+- Implemented MCMC algorithms for parameter estimation
+- Conducted sensitivity and robustness analyses
+
+Key Findings:
+- Identified 7 critical factors associated with treatment outcomes
+- Model achieved 81% predictive accuracy
+- Demonstrated effectiveness of Bayesian approach over frequentist methods
+- Generated policy recommendations adopted by WHO collaborating centers
+
+Research Impact:
+- Thesis findings presented at International Statistical Society Conference
+- Invited to present at 2 international public health conferences
+- Research supported by WHO and Gates Foundation
+- Findings inform TB control programs in 3 African countries
+
+Publications:
+- Okonkwo, A., Jones, R., Williams, S. (2021). "Bayesian Prediction of TB 
+  Treatment Outcomes in Sub-Saharan Africa." Statistical Modelling in Medicine 
+  and Public Health, (in preparation for submission)
+
+================================================================================
+COURSE DESCRIPTIONS & LEARNING OUTCOMES
+================================================================================
+
+Statistical Foundations (Grade: 92/100):
+- Comprehensive review of probability, distributions, and likelihood theory
+- Applications to real-world datasets
+- Final exam + coursework assessment
+
+Probability Theory (Grade: 89/100):
+- Advanced probability spaces and stochastic processes
+- Limit theorems and convergence properties
+- Applications in statistical modeling
+
+Statistical Inference I & II (Grade: 90.5/100):
+- Hypothesis testing, confidence intervals, and hypothesis formulation
+- Likelihood-based inference and maximum likelihood estimation
+- Bayesian inference and posterior distributions
+
+Machine Learning & Data Mining (Grade: 94/100):
+- Supervised and unsupervised learning algorithms
+- Classification, regression, clustering techniques
+- Practical applications using R and Python
+
+Time Series Analysis (Grade: 93/100):
+- ARIMA, SARIMA, and state-space models
+- Spectral analysis and wavelets
+- Forecasting methods and evaluation
+
+Bayesian Methods & Computational Inference (Grade: 92/100):
+- Bayesian hierarchical models
+- Markov Chain Monte Carlo (MCMC) methods
+- Variational inference
+
+Applied Multivariate Analysis (Grade: 91/100):
+- Principal component analysis and factor analysis
+- Clustering and discriminant analysis
+- Practical applications in epidemiology
+
+================================================================================
+ACADEMIC HONORS & DISTINCTIONS
+================================================================================
+
+Imperial College Distinctions:
+- Awarded Distinction (Top 5% of MSc cohort)
+- Faculty of Natural Sciences High Achievement Award
+- Best Thesis in Applied Statistics (2021)
+
+External Recognitions:
+- Statistical Society of Nigeria Award (2021)
+- African Statistics Association Young Scholar Recognition
+- Imperial College Excellence Fund Award (£5,000 research grant)
+
+Scholarships:
+- Imperial College Scholarship (2020-2021): £8,000 partial funding
+- Commonwealth Scholarship (2020-2021): £10,000 tuition support
+
+================================================================================
+PROFESSIONAL SKILLS & TECHNICAL COMPETENCIES
+================================================================================
+
+Programming Languages:
+- R: Advanced (Bayesian packages, ggplot2, tidyverse, Rcpp)
+- Python: Advanced (scikit-learn, pandas, numpy, TensorFlow)
+- SQL: Proficient
+- STATA: Proficient
+- MATLAB: Intermediate
+
+Statistical Software:
+- JAGS (Just Another Gibbs Sampler): Advanced
+- Stan: Proficient
+- Bayesian modeling: Advanced
+- Data visualization: Advanced
+
+Applications:
+- Machine learning model development
+- Time series forecasting
+- Bayesian hierarchical modeling
+- Statistical simulation and Monte Carlo methods
+
+================================================================================
+RESEARCH EXPERIENCE & COLLABORATIONS
+================================================================================
+
+Collaborative Research Projects:
+
+1. WHO Health Systems Research Collaboration (May-September 2021)
+   - Collaborated with World Health Organization on TB epidemiology project
+   - Analyzed disease surveillance data from 15 African countries
+   - Presented findings at international forum
+
+2. Gates Foundation Africa Health Initiative (Project Partner)
+   - Contributed statistical expertise to health system strengthening research
+   - Supported analysis of healthcare delivery interventions
+
+Internship:
+Imperial Clinical Analytics Unit (Concurrent with MSc)
+- Conducted statistical analyses supporting clinical research
+- Mentored undergraduate students in statistical methods
+- Contributed to 2 published research papers in medical journals
+
+================================================================================
+STANDARDIZED TEST SCORES
+================================================================================
+
+Graduate Record Examination (GRE):
+Test Date: March 2020
+Quantitative Reasoning: 167/170 (97th percentile)
+Verbal Reasoning: 158/170 (78th percentile)
+Analytical Writing: 4.5/6.0
+Total Score: 325/340
+
+Test of English as a Foreign Language (TOEFL):
+Test Date: February 2020
+Reading: 29/30
+Writing: 29/30
+Listening: 27/30
+Speaking: 27/30
+Total Score: 112/120
+
+================================================================================
+UNDERGRADUATE DEGREE INFORMATION
+================================================================================
+
+Previous Degree: Bachelor of Science in Statistics
+Institution: University of Lagos, Nigeria
+Degree Awarded: June 2019
+Classification: First Class Honours (GPA: 3.9/4.0)
+
+Undergraduate Thesis:
+Title: "Statistical Analysis of Maternal Mortality in Nigeria"
+Grade: A+ (95/100)
+
+================================================================================
+LANGUAGE PROFICIENCY
+================================================================================
+
+Languages:
+- English: Fluent (native speaker)
+- Yoruba: Native language
+- French: Intermediate
+
+================================================================================
+VERIFIER INFORMATION
+================================================================================
+
+Registrar: Professor Michael Hayes, Registrar
+Imperial College London
+Address: Exhibition Road, South Kensington, London SW7 2AZ, UK
+Phone: +44-20-7589-5111
+Email: registrar@imperial.ac.uk
+
+This is a true and authentic transcript of the academic record of the above-
+named student. It is issued on the authority of the Registrar.
+
+Issued on: October 15, 2021
+Valid from: September 2020 - September 2021
+
+================================================================================

@@ -1,0 +1,143 @@
+STATEMENT OF PURPOSE
+================================================================================
+
+Applicant: Priya Sharma
+Program: Master of Science in Computer Science
+Target University: Massachusetts Institute of Technology (MIT)
+Date: May 2026
+
+================================================================================
+
+ACADEMIC BACKGROUND & MOTIVATION
+
+I am writing to express my strong interest in pursuing a Master's degree in 
+Computer Science at MIT. With a B.Tech in Computer Science from Delhi University 
+(CGPA: 3.85/4.0) and three years of professional experience as a Senior Software 
+Engineer at Tata Consultancy Services (TCS), I am confident that MIT's rigorous 
+curriculum and cutting-edge research opportunities align perfectly with my 
+career aspirations.
+
+My passion for computer science stems from a deep fascination with how technology 
+can solve complex real-world problems. Over the years, this interest has evolved 
+into a focused pursuit of expertise in Artificial Intelligence, Machine Learning, 
+and Distributed Systems. MIT's world-renowned programs in these areas make it the 
+ideal platform for advancing my knowledge and contributing meaningfully to 
+technological innovation.
+
+================================================================================
+
+ACADEMIC ACHIEVEMENTS
+
+Throughout my undergraduate studies, I consistently maintained a strong GPA and 
+excelled in core computer science courses including Data Structures, Algorithms, 
+Database Systems, and Operating Systems. I also completed advanced electives in 
+Artificial Intelligence, Cloud Computing, and Cybersecurity, which provided me 
+with a solid theoretical foundation and hands-on experience.
+
+My standardized test scores reflect my commitment to academic excellence:
+- GRE: 333/340 (Quantitative: 169/170, Verbal: 164/170)
+- IELTS: 8.5/9.0
+- TOEFL (alternative): 110/120
+
+These scores demonstrate both my analytical abilities and English proficiency, 
+essential for success in a rigorous graduate program at a top-tier institution.
+
+================================================================================
+
+PROFESSIONAL EXPERIENCE
+
+At Tata Consultancy Services, I have worked as a Senior Software Engineer for 
+three years, developing enterprise-level applications serving Fortune 500 
+companies. My key achievements include:
+
+1. Developed a real-time data processing system using Apache Spark and Kafka 
+   that reduced data latency by 40%, processing 10M+ events daily.
+
+2. Led a team of 4 engineers in designing and implementing a microservices 
+   architecture using Docker and Kubernetes, improving system scalability by 60%.
+
+3. Implemented machine learning models for predictive analytics, improving 
+   accuracy by 35% compared to previous approaches.
+
+4. Mentored 8 junior developers, establishing coding standards and best 
+   practices that reduced bug reports by 50%.
+
+These experiences have equipped me with practical knowledge of modern software 
+development methodologies, cloud technologies, and team collaboration—skills that 
+will prove invaluable in graduate research and coursework.
+
+================================================================================
+
+RESEARCH INTERESTS & GOALS
+
+My primary research interests lie in the intersection of Machine Learning, 
+Distributed Systems, and Natural Language Processing. I am particularly 
+fascinated by:
+
+1. Deep learning applications for healthcare diagnostics and drug discovery
+2. Distributed machine learning systems for processing large-scale data
+3. Ethical AI and fairness in machine learning models
+
+At MIT, I aim to:
+- Conduct cutting-edge research under renowned faculty members
+- Contribute to open-source projects in AI and distributed computing
+- Collaborate with peers on interdisciplinary projects combining CS with 
+  biology, medicine, and social sciences
+
+================================================================================
+
+LONG-TERM CAREER VISION
+
+After completing my Master's degree, I aspire to work at leading technology 
+companies like Google Brain, OpenAI, or Microsoft Research, where I can 
+contribute to breakthrough projects in artificial intelligence. In the long term, 
+I aim to establish my own research institute focused on making advanced AI 
+technologies accessible and beneficial to developing nations, addressing 
+challenges in healthcare, agriculture, and education.
+
+I believe MIT's collaborative culture, access to cutting-edge research facilities, 
+and global network of alumni and researchers will provide the perfect foundation 
+for achieving these ambitious goals.
+
+================================================================================
+
+WHY MIT?
+
+MIT is my top choice for several compelling reasons:
+
+1. FACULTY & RESEARCH: The Computer Science department has world-leading 
+   researchers in AI, ML, and distributed systems whose work I deeply admire.
+
+2. FACILITIES: Access to state-of-the-art computing resources, AI Lab, 
+   and research centers focused on emerging technologies.
+
+3. COLLABORATIVE CULTURE: MIT's emphasis on interdisciplinary collaboration 
+   and innovation aligns with my research interests and career goals.
+
+4. GLOBAL COMMUNITY: The diverse student body and international collaborations 
+   will provide invaluable global perspective and networking opportunities.
+
+5. CAREER OPPORTUNITIES: MIT's strong ties with tech industry leaders and 
+   alumni network provide excellent career prospects and research collaborations.
+
+================================================================================
+
+CONCLUSION
+
+I am confident that a Master's degree from MIT will equip me with the advanced 
+knowledge, research skills, and professional network necessary to make meaningful 
+contributions to the field of computer science and technology. I am excited about 
+the opportunity to contribute to MIT's vibrant research community and to advance 
+the frontiers of AI and distributed computing.
+
+Thank you for considering my application. I look forward to the opportunity to 
+discuss how I can contribute to MIT's mission of advancing knowledge and 
+technology for the benefit of society.
+
+Sincerely,
+
+Priya Sharma
+priya.sharma@email.com
++91-9876543210
+
+================================================================================
