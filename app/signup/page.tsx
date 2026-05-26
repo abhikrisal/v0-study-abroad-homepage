@@ -67,19 +67,24 @@ export default function SignUpPage() {
     setIsLoading(true)
 
     try {
+      console.log("[v0] Attempting signup with email:", formData.email)
       const result = await signUp({
         email: formData.email,
         password: formData.password,
         firstName: formData.firstName,
         lastName: formData.lastName,
       })
+      console.log("[v0] Signup result:", result)
 
       if (result.error) {
+        console.log("[v0] Signup error:", result.error)
         setError(result.error)
       } else {
+        console.log("[v0] Signup success!")
         setSuccess(true)
       }
     } catch (err) {
+      console.error("[v0] Signup exception:", err)
       setError("Something went wrong. Please try again.")
     } finally {
       setIsLoading(false)

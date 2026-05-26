@@ -9,14 +9,20 @@ export async function signUp(data: {
   firstName: string
   lastName: string
 }) {
+  console.log("[v0] signUp action called with:", { email: data.email, firstName: data.firstName, lastName: data.lastName })
+  
   const supabase = await createClient()
+  console.log("[v0] Supabase client created")
 
-  const { error } = await supabase.auth.signUp({
+  const redirectUrl = process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL ?? 
+    `${process.env.NEXT_PUBLIC_SITE_URL || 'https://v0-study-abroad-homepage.vercel.app'}/auth/callback`
+  console.log("[v0] Redirect URL:", redirectUrl)
+
+  const { data: authData, error } = await supabase.auth.signUp({
     email: data.email,
     password: data.password,
     options: {
-      emailRedirectTo: process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL ?? 
-        `${process.env.NEXT_PUBLIC_SITE_URL || 'https://v0-study-abroad-homepage.vercel.app'}/auth/callback`,
+      emailRedirectTo: redirectUrl,
       data: {
         first_name: data.firstName,
         last_name: data.lastName,
@@ -25,7 +31,10 @@ export async function signUp(data: {
     }
   })
 
+  console.log("[v0] Supabase auth.signUp response:", { authData, error })
+
   if (error) {
+    console.log("[v0] Signup error:", error.message)
     return { error: error.message }
   }
 
