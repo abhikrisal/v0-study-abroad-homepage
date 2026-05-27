@@ -37,11 +37,7 @@ export async function getUniversitiesForMatching() {
 
   const { data: universities } = await supabase
     .from('universities')
-    .select(
-      `*,
-      programs(*)`
-    )
-    .eq('is_active', true)
+    .select('*')
 
   return universities || []
 }
@@ -58,11 +54,10 @@ export async function checkEligibility(studentData: {
   try {
     const supabase = await createClient()
 
-    // Get all active universities
+    // Get all universities (new schema has no is_active column)
     const { data: universities, error: uniError } = await supabase
       .from('universities')
-      .select('id, name, country, city, ranking, is_active')
-      .eq('is_active', true)
+      .select('id, name, country, city, ranking_qs_2024, tuition_usd_per_year, continent')
 
     if (uniError) {
       console.log('[v0] University fetch error:', uniError.message)
@@ -84,23 +79,27 @@ export async function checkEligibility(studentData: {
     // Build university requirements from DB data
     const universityRequirements: UniversityRequirements[] = uniList.map(uni => {
       const uniPrograms = programs?.filter(p => p.university_id === uni.id) || []
-      const avgTuition = uniPrograms.length > 0
+      // Use tuition from new schema, fallback to programs average or default
+      const avgTuition = (uni as any).tuition_usd_per_year || (uniPrograms.length > 0
         ? uniPrograms.reduce((sum, p) => sum + (p.tuition_fee || 30000), 0) / uniPrograms.length
-        : getDefaultTuition(uni.country)
+        : getDefaultTuition(uni.country))
       const fields = uniPrograms.length > 0
         ? [...new Set(uniPrograms.map(p => p.field_of_study).filter(Boolean))]
         : studentData.preferredFields
+      
+      // Use ranking_qs_2024 from new schema
+      const ranking = (uni as any).ranking_qs_2024 || (uni as any).ranking || 100
 
       return {
         id: uni.id,
         name: uni.name,
         country: uni.country,
         city: uni.city || '',
-        minGPA: getMinGpaByRanking(uni.ranking),
+        minGPA: getMinGpaByRanking(ranking),
         minEnglishScore: getMinEnglishByCountry(uni.country),
         englishTestType: 'IELTS' as const,
         tuitionFee: avgTuition,
-        selectivityRank: uni.ranking || 100,
+        selectivityRank: ranking,
         fields,
         degreeLevel: studentData.degreeLevel,
       }

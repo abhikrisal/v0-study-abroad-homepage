@@ -163,8 +163,7 @@ export async function getUniversities() {
   const { data, error } = await supabase
     .from('universities')
     .select('*')
-    .eq('is_active', true)
-    .order('ranking', { ascending: true })
+    .order('ranking_qs_2024', { ascending: true })
 
   if (error) {
     console.error('Error fetching universities:', error)
