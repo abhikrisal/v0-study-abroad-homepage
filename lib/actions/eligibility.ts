@@ -54,20 +54,25 @@ export async function checkEligibility(studentData: {
   try {
     const supabase = await createClient()
 
+    console.log('[v0] Starting eligibility check...')
+
     // Get all universities (new schema has no is_active column)
     const { data: universities, error: uniError } = await supabase
       .from('universities')
       .select('id, name, country, city, ranking_qs_2024, tuition_usd_per_year, continent')
 
+    console.log('[v0] Universities fetched:', universities?.length || 0, 'error:', uniError?.message)
+
     if (uniError) {
       console.log('[v0] University fetch error:', uniError.message)
     }
 
-    // Get programs for matching
+    // Get programs for matching (programs may not exist yet)
     const { data: programs, error: progError } = await supabase
       .from('programs')
       .select('id, university_id, name, field_of_study, level, tuition_fee, deadline')
-      .eq('is_active', true)
+
+    console.log('[v0] Programs fetched:', programs?.length || 0, 'error:', progError?.message)
 
     if (progError) {
       console.log('[v0] Programs fetch error:', progError.message)
@@ -75,6 +80,7 @@ export async function checkEligibility(studentData: {
 
     // Use fetched data or fallback sample data if nothing returned
     const uniList = (universities && universities.length > 0) ? universities : FALLBACK_UNIVERSITIES
+    console.log('[v0] Using uniList with', uniList.length, 'universities')
 
     // Build university requirements from DB data
     const universityRequirements: UniversityRequirements[] = uniList.map(uni => {
