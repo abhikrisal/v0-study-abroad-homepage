@@ -1,0 +1,138 @@
+═══════════════════════════════════════════════════════════════════════════════
+                         OFFICIAL ACADEMIC TRANSCRIPT
+              UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO (UNAM)
+                   Facultad de Ingeniería Mecánica
+═══════════════════════════════════════════════════════════════════════════════
+
+STUDENT INFORMATION
+───────────────────────────────────────────────────────────────────────────────
+Name:               María Elena Rodriguez García
+Student ID:         UNAM-2017-IM-31542
+Date of Birth:      8 September 1999
+Program:            Licenciatura en Ingeniería Mecánica
+                    (Bachelor of Mechanical Engineering)
+Enrollment Date:    August 2017
+Graduation Date:    June 2022
+Status:             Graduated with Honors (Mención Honorífica)
+
+═══════════════════════════════════════════════════════════════════════════════
+                              ACADEMIC RECORD
+═══════════════════════════════════════════════════════════════════════════════
+
+SEMESTER 1 (Fall 2017)
+───────────────────────────────────────────────────────────────────────────────
+Código         Asignatura                               Créditos   Calificación
+MAT-101        Cálculo Diferencial                      8          9.5
+FIS-101        Física General I                         8          9.0
+QUI-101        Química General                          6          9.0
+ING-101        Introducción a la Ingeniería             4          10.0
+DIA-101        Dibujo Técnico                           4          9.5
+───────────────────────────────────────────────────────────────────────────────
+Promedio Semestral: 9.3/10                       Créditos: 30
+
+SEMESTER 2 (Spring 2018)
+───────────────────────────────────────────────────────────────────────────────
+Código         Asignatura                               Créditos   Calificación
+MAT-102        Cálculo Integral                         8          9.5
+FIS-102        Física General II                        8          9.5
+MAT-103        Álgebra Lineal                           6          9.0
+PRO-101        Programación Básica                      6          9.5
+COM-101        Comunicación Técnica                     4          9.0
+───────────────────────────────────────────────────────────────────────────────
+Promedio Semestral: 9.4/10                       Créditos: 32
+
+SEMESTER 3 (Fall 2018)
+───────────────────────────────────────────────────────────────────────────────
+Código         Asignatura                               Créditos   Calificación
+MAT-201        Ecuaciones Diferenciales                 8          9.0
+MEC-201        Estática                                 8          9.5
+MAT-202        Probabilidad y Estadística               6          9.0
+TER-201        Termodinámica I                          8          9.5
+MAT-203        Métodos Numéricos                        6          9.0
+───────────────────────────────────────────────────────────────────────────────
+Promedio Semestral: 9.2/10                       Créditos: 36
+
+SEMESTER 4 (Spring 2019)
+───────────────────────────────────────────────────────────────────────────────
+Código         Asignatura                               Créditos   Calificación
+MEC-202        Dinámica                                 8          9.5
+MEC-203        Resistencia de Materiales I              8          9.0
+TER-202        Termodinámica II                         8          9.5
+FLU-201        Mecánica de Fluidos I                    8          10.0
+ELE-201        Circuitos Eléctricos                     6          9.0
+───────────────────────────────────────────────────────────────────────────────
+Promedio Semestral: 9.4/10                       Créditos: 38
+
+SEMESTER 5 (Fall 2019)
+───────────────────────────────────────────────────────────────────────────────
+Código         Asignatura                               Créditos   Calificación
+MEC-301        Resistencia de Materiales II             8          9.5
+FLU-301        Mecánica de Fluidos II                   8          9.5
+TRA-301        Transferencia de Calor                   8          10.0
+DIS-301        Diseño de Máquinas I                     8          9.0
+CON-301        Control Automático                       6          9.5
+───────────────────────────────────────────────────────────────────────────────
+Promedio Semestral: 9.5/10                       Créditos: 38
+
+SEMESTER 6 (Spring 2020)
+───────────────────────────────────────────────────────────────────────────────
+Código         Asignatura                               Créditos   Calificación
+DIS-302        Diseño de Máquinas II                    8          9.5
+TUR-301        Turbomaquinaria                          8          10.0
+ENE-301        Sistemas de Energía                      8          10.0
+MAN-301        Procesos de Manufactura                  8          9.0
+ADM-301        Administración de Proyectos              4          9.5
+───────────────────────────────────────────────────────────────────────────────
+Promedio Semestral: 9.6/10                       Créditos: 36
+
+SEMESTER 7 (Fall 2020)
+───────────────────────────────────────────────────────────────────────────────
+Código         Asignatura                               Créditos   Calificación
+ENE-401        Energías Renovables                      8          10.0
+MEC-401        Vibraciones Mecánicas                    8          9.5
+CAD-401        Diseño Asistido por Computadora          6          9.5
+INV-401        Metodología de Investigación             4          10.0
+PRA-401        Prácticas Profesionales                  10         10.0
+───────────────────────────────────────────────────────────────────────────────
+Promedio Semestral: 9.8/10                       Créditos: 36
+
+SEMESTER 8 (Spring 2021)
+───────────────────────────────────────────────────────────────────────────────
+Código         Asignatura                               Créditos   Calificación
+TES-401        Tesis I                                  12         10.0
+ENE-402        Sistemas Eólicos                         8          10.0
+OPT-401        Optativa: Energía Solar Térmica          6          10.0
+SEM-401        Seminario de Titulación                  4          10.0
+───────────────────────────────────────────────────────────────────────────────
+Promedio Semestral: 10.0/10                      Créditos: 30
+
+SEMESTER 9 (Fall 2021)
+───────────────────────────────────────────────────────────────────────────────
+Código         Asignatura                               Créditos   Calificación
+TES-402        Tesis II                                 20         10.0
+SER-401        Servicio Social                          10         Acreditado
+───────────────────────────────────────────────────────────────────────────────
+Promedio Semestral: 10.0/10                      Créditos: 30
+
+═══════════════════════════════════════════════════════════════════════════════
+                              RESUMEN / SUMMARY
+═══════════════════════════════════════════════════════════════════════════════
+Total de Créditos:           306
+Promedio General:            9.52 / 10.00
+Equivalente GPA (US):        3.75 / 4.00
+Mención:                     Honorífica (With Honors)
+Reconocimientos:             Premio a la Mejor Tesis 2022
+                             Medalla Gabino Barreda al Mérito Universitario
+
+Título de Tesis:            "Optimización del Diseño de Aspas de Turbina Eólica
+                             para Regiones de Baja Velocidad de Viento"
+Calificación de Tesis:       10/10 (Mención Honorífica)
+
+TOEFL iBT Score:             102 (R: 28, L: 26, S: 24, W: 24)
+GRE Score:                   322 (V: 155, Q: 167, AWA: 4.0)
+
+═══════════════════════════════════════════════════════════════════════════════
+Este documento es oficial cuando contiene el sello de la universidad.
+Fecha de Emisión: 15 de Julio, 2022
+Número de Documento: UNAM-TR-2022-IM-31542
+═══════════════════════════════════════════════════════════════════════════════

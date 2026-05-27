@@ -1,0 +1,183 @@
+================================================================================
+                     ACADEMIC TRANSCRIPT
+================================================================================
+
+Institution: Delhi University, India
+Program: Bachelor of Technology (B.Tech) in Computer Science
+Degree Awarded: May 2021
+Cumulative GPA: 3.85/4.0 | Grade: A+
+
+Student: Priya Sharma
+Student ID: DU2017CS0456
+Address: New Delhi, India
+Contact: +91-9876543210
+
+================================================================================
+SEMESTER-BY-SEMESTER BREAKDOWN
+================================================================================
+
+FIRST YEAR:
+Semester 1 (Aug 2017 - Dec 2017):
+Course Code | Course Name                        | Credits | Grade | Points
+CS101       | Programming Fundamentals (Java)    | 4       | A+    | 4.0
+CS102       | Discrete Mathematics               | 3       | A+    | 4.0
+CS103       | Digital Design                     | 4       | A     | 3.9
+MA101       | Calculus & Linear Algebra          | 4       | A+    | 4.0
+EN101       | Technical Communication           | 2       | A     | 3.9
+                                          Semester GPA: 3.96/4.0
+
+Semester 2 (Jan 2018 - May 2018):
+CS104       | Object-Oriented Programming (C++)  | 4       | A+    | 4.0
+CS105       | Data Structures                    | 4       | A+    | 4.0
+CS106       | Algorithms Fundamentals            | 4       | A     | 3.9
+MA102       | Probability & Statistics           | 3       | A+    | 4.0
+PH101       | Physics Lab                        | 1       | A     | 3.9
+                                          Semester GPA: 3.96/4.0
+
+SECOND YEAR:
+Semester 3 (Aug 2018 - Dec 2018):
+CS201       | Database Systems                   | 4       | A+    | 4.0
+CS202       | Web Development                    | 3       | A     | 3.9
+CS203       | Operating Systems                  | 4       | A+    | 4.0
+CS204       | Computer Architecture              | 3       | A+    | 4.0
+MA201       | Numerical Methods                  | 3       | A     | 3.9
+                                          Semester GPA: 3.96/4.0
+
+Semester 4 (Jan 2019 - May 2019):
+CS205       | Software Engineering               | 4       | A     | 3.9
+CS206       | Computer Networks                  | 4       | A+    | 4.0
+CS207       | Artificial Intelligence            | 4       | A+    | 4.0
+CS208       | Advanced Java Programming          | 3       | A+    | 4.0
+CS209       | Computer Networks Lab              | 2       | A     | 3.9
+                                          Semester GPA: 3.96/4.0
+
+THIRD YEAR:
+Semester 5 (Aug 2019 - Dec 2019):
+CS301       | Machine Learning                   | 4       | A+    | 4.0
+CS302       | Cloud Computing                    | 3       | A+    | 4.0
+CS303       | Information Security               | 4       | A     | 3.9
+CS304       | Mobile Application Development     | 3       | A+    | 4.0
+CS305       | Database Design Lab                | 2       | A+    | 4.0
+                                          Semester GPA: 3.98/4.0
+
+Semester 6 (Jan 2020 - May 2020):
+CS306       | Distributed Systems                | 4       | A+    | 4.0
+CS307       | Advanced Algorithms                | 4       | A+    | 4.0
+CS308       | Big Data Analytics                 | 3       | A     | 3.9
+CS309       | Cryptography & Network Security    | 3       | A+    | 4.0
+CS310       | Machine Learning Lab               | 2       | A+    | 4.0
+                                          Semester GPA: 3.98/4.0
+
+FOURTH YEAR:
+Semester 7 (Aug 2020 - Dec 2020):
+CS401       | Research Methods & Project Design  | 3       | A+    | 4.0
+CS402       | Internship Preparation             | 2       | A     | 3.9
+CS403       | Elective: Deep Learning            | 3       | A+    | 4.0
+CS404       | Capstone Project Part I            | 4       | A+    | 4.0
+                                          Semester GPA: 3.98/4.0
+
+Semester 8 (Jan 2021 - May 2021):
+CS405       | Capstone Project Part II           | 6       | A+    | 4.0
+CS406       | Professional Ethics in IT          | 2       | A     | 3.9
+CS407       | Industry Internship Credits        | 3       | A+    | 4.0
+                                          Semester GPA: 3.97/4.0
+
+================================================================================
+CUMULATIVE ACADEMIC RECORD
+================================================================================
+
+Total Credits Completed: 89 credits
+Total Grade Points: 355.2
+Cumulative GPA: 3.85/4.0
+
+Academic Standing: Excellent (Top 2% of class)
+Dean's List: All 8 semesters
+
+================================================================================
+CAPSTONE PROJECT
+================================================================================
+
+Project Title: "Real-Time Fraud Detection System Using Deep Learning"
+Advisor: Dr. Rajesh Kumar, Professor of Computer Science
+Status: Completed with Distinction
+Grade: A+ (98/100)
+
+Abstract: Developed a machine learning system using convolutional neural networks 
+to detect fraudulent transactions in real-time. The system achieved 99.2% 
+accuracy on test data and was deployed in a pilot program with a major Indian 
+bank. The project resulted in a published research paper at an international 
+conference.
+
+Key Contributions:
+- Designed and implemented deep learning architecture using TensorFlow
+- Achieved 99.2% accuracy in fraud detection
+- Reduced false positive rate by 45% compared to existing systems
+- Generated research publication in IEEE conference proceedings
+
+================================================================================
+STANDARDIZED TEST SCORES
+================================================================================
+
+Graduate Record Examination (GRE):
+Test Date: November 2020
+Quantitative Reasoning: 169/170 (97th percentile)
+Verbal Reasoning: 164/170 (90th percentile)
+Analytical Writing: 5.5/6.0
+Total Score: 333/340
+
+Test of English as a Foreign Language (TOEFL):
+Test Date: October 2020
+Reading: 29/30
+Writing: 30/30
+Listening: 28/30
+Speaking: 23/30
+Total Score: 110/120
+
+================================================================================
+PROFESSIONAL CERTIFICATIONS
+================================================================================
+
+- AWS Certified Solutions Architect - Associate (2021)
+- Oracle Certified Associate Java Programmer (2020)
+- Google Cloud Professional Data Engineer (2021)
+
+================================================================================
+ACADEMIC HONORS & AWARDS
+================================================================================
+
+- University Merit Scholarship (2017-2021): Full tuition scholarship for 
+  academic excellence
+- Delhi University Excellence Award (2021): For outstanding academic achievement
+- National Talent Search Examination (NTSE) Scholar (2015)
+- IEEE Student Member (2019-2021)
+
+================================================================================
+ADDITIONAL COURSEWORK & ADVANCED STUDIES
+================================================================================
+
+Online Certifications Completed:
+- Machine Learning Specialization (Andrew Ng, Coursera) - 2020
+- Deep Learning Specialization (Andrew Ng, Coursera) - 2021
+- Advanced Python Programming (edX) - 2020
+
+Research Publications:
+- Sharma, P., Kumar, R. (2021). "Real-Time Fraud Detection Using Deep 
+  Learning." IEEE International Conference on Machine Learning and Applications.
+
+================================================================================
+VERIFIER INFORMATION
+================================================================================
+
+Registrar: Dr. Meera Singh, Registrar
+Delhi University
+Address: North Campus, Delhi-110007, India
+Phone: +91-11-27666666
+Email: registrar@du.ac.in
+
+This is a true and authentic transcript of the academic record of the above-
+named student. It is issued on the authority of the Registrar.
+
+Issued on: May 15, 2021
+Valid from: 2017 - 2021
+
+================================================================================

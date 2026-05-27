@@ -1,0 +1,216 @@
+================================================================================
+                     ACADEMIC TRANSCRIPT
+================================================================================
+
+Institution: National University of Singapore (NUS)
+Program: Bachelor of Science (Honors) in Economics
+Degree Awarded: May 2019
+Cumulative GPA: 4.38/5.0 | Classification: First Class Honors
+
+Student: James Chen
+Student ID: NUS2015EC5234
+Address: Singapore
+Contact: +65-91234567
+
+================================================================================
+ACADEMIC PROFILE
+================================================================================
+
+Degree Awarded: Bachelor of Science (Honours) in Economics
+Major: Economics
+Minor: Business Administration
+Date of Graduation: May 2019
+Duration: 4 years (Aug 2015 - May 2019)
+
+Overall GPA: 4.38/5.0
+Classification: First Class Honours (Top 5% of graduating class)
+Academic Standing: Excellent
+
+================================================================================
+SEMESTER-BY-SEMESTER BREAKDOWN
+================================================================================
+
+YEAR 1 (AY 2015-16):
+
+Semester 1 (Aug-Nov 2015):
+Course Code | Course Name                           | Credits | Grade | Points
+EC1101E     | Principles of Economics               | 4       | A+    | 5.0
+MA1101R     | Linear Algebra I                      | 4       | A+    | 5.0
+MA1102R     | Calculus                              | 4       | A     | 4.5
+CM1121      | General Chemistry                     | 4       | A     | 4.5
+GES1041     | Singapore's Development               | 2       | A+    | 5.0
+                                          Semester GPA: 4.8/5.0
+
+Semester 2 (Dec 2015-April 2016):
+EC1102E     | Microeconomics                        | 4       | A+    | 5.0
+CS1101S     | Programming Methodology               | 4       | A     | 4.5
+LH2020E     | Academic Writing                      | 2       | A+    | 5.0
+EC2102      | Statistical Foundations               | 3       | A+    | 5.0
+PC1421      | Physics I                             | 3       | A     | 4.5
+                                          Semester GPA: 4.8/5.0
+
+YEAR 2 (AY 2016-17):
+
+Semester 1 (Aug-Nov 2016):
+EC2101      | Microeconomic Theory I                | 4       | A+    | 5.0
+EC2102      | Macroeconomic Theory I                | 4       | A+    | 5.0
+ST2131      | Probability                           | 4       | A+    | 5.0
+MA2108S     | Mathematical Analysis I               | 4       | A     | 4.5
+BZ2101      | Molecular Biology                     | 3       | A     | 4.5
+                                          Semester GPA: 4.9/5.0
+
+Semester 2 (Dec 2016-April 2017):
+EC2103      | Microeconomic Theory II               | 4       | A+    | 5.0
+EC2104      | Macroeconomic Theory II               | 4       | A+    | 5.0
+ST2132      | Mathematical Statistics               | 4       | A+    | 5.0
+BIZ1001     | Business Law I                        | 3       | A     | 4.5
+AC1101E     | Financial Accounting                  | 3       | A+    | 5.0
+                                          Semester GPA: 4.9/5.0
+
+YEAR 3 (AY 2017-18):
+
+Semester 1 (Aug-Nov 2017):
+EC3101      | Econometrics I                        | 4       | A+    | 5.0
+EC3102      | International Trade                   | 3       | A+    | 5.0
+EC3103      | Financial Economics                   | 3       | A+    | 5.0
+BIZ2002     | Corporate Finance                     | 3       | A     | 4.5
+BIZ2001     | Marketing Management                  | 3       | A+    | 5.0
+                                          Semester GPA: 4.9/5.0
+
+Semester 2 (Dec 2017-April 2018):
+EC3104      | Econometrics II                       | 4       | A+    | 5.0
+EC3105      | Development Economics                 | 3       | A     | 4.5
+EC3106      | Behavioral Economics                  | 3       | A+    | 5.0
+BIZ2003     | Strategic Management                  | 3       | A+    | 5.0
+IE2101E     | Entrepreneurship Essentials           | 2       | A+    | 5.0
+                                          Semester GPA: 4.9/5.0
+
+YEAR 4 (AY 2018-19):
+
+Semester 1 (Aug-Nov 2018):
+EC4101      | Research Methods in Economics         | 4       | A+    | 5.0
+EC4102      | Advanced Topics: Digital Economics    | 3       | A+    | 5.0
+BIZ3001     | Business Analytics                    | 3       | A     | 4.5
+BIZ3002     | Operations Management                 | 3       | A+    | 5.0
+SE4101      | Selected Topics: Emerging Markets     | 2       | A+    | 5.0
+                                          Semester GPA: 4.9/5.0
+
+Semester 2 (Dec 2018-April 2019):
+EC4103      | Capstone: Economic Research Seminar   | 6       | A+    | 5.0
+BIZ3003     | Global Business Strategy              | 3       | A+    | 5.0
+FE4001      | Financial Engineering Basics          | 2       | A     | 4.5
+                                          Semester GPA: 4.9/5.0
+
+================================================================================
+CUMULATIVE ACADEMIC RECORD
+================================================================================
+
+Total Credits: 92
+Total Grade Points: 408.5
+Cumulative GPA: 4.38/5.0
+Classification: First Class Honours
+Percentile Ranking: Top 5% of graduating class
+
+Academic Distinctions:
+- Dean's List: All 8 semesters
+- University Scholarship: 4 years (full tuition + living allowance)
+- Best Economics Honors Thesis Award
+- NUS Excellence Award
+
+================================================================================
+HONORS THESIS
+================================================================================
+
+Title: "Digital Disruption in Southeast Asian Telecommunications: A Case Study 
+        of Competitive Dynamics and Strategic Responses"
+Advisor: Prof. Michael Tay, Department of Economics
+Status: Completed with Distinction
+Grade: A+ (98/100)
+
+Summary: Conducted detailed econometric analysis of the telecommunications 
+sector in Southeast Asia, examining how digital disruption has impacted market 
+structure, firm competitiveness, and consumer welfare. The thesis utilized 
+panel data analysis and dynamic modeling techniques to forecast industry trends 
+and corporate strategy implications.
+
+Key Findings:
+- Identified key drivers of market consolidation in regional telecom sector
+- Quantified consumer welfare gains from digital competition (estimated 8-12%)
+- Provided strategic recommendations for incumbent operators
+
+Publication: The thesis was selected for presentation at the Asian Economics 
+Association conference and is under consideration for journal publication.
+
+================================================================================
+STANDARDIZED TEST SCORES
+================================================================================
+
+Graduate Management Admission Test (GMAT):
+Test Date: August 2018
+Quantitative: 48/51 (93rd percentile)
+Verbal: 39/51 (85th percentile)
+Analytical Writing: 6.0/6.0
+Total Score: 710/800
+
+Test of English as a Foreign Language (TOEFL):
+Test Date: July 2018
+Reading: 29/30
+Writing: 30/30
+Listening: 28/30
+Speaking: 28/30
+Total Score: 115/120
+
+================================================================================
+ACADEMIC AWARDS & SCHOLARSHIPS
+================================================================================
+
+- NUS Merit Scholarship (2015-2019): Full tuition + living stipend
+- Best Honors Thesis Award, Department of Economics (2019)
+- NUS Excellence Award (2019)
+- ASEAN Economic Forum Scholar (2018)
+
+================================================================================
+PROFESSIONAL QUALIFICATIONS
+================================================================================
+
+- Financial Risk Manager (FRM) Level I Pass (2018)
+- CFA Level I (Passed June 2019)
+
+================================================================================
+ADDITIONAL COURSEWORK
+================================================================================
+
+Online Certifications:
+- Business Analytics Specialization (University of Pennsylvania, Coursera) - 2019
+- Financial Markets (Yale University, Coursera) - 2018
+
+Research & Publications:
+- Chen, J., Tay, M. (2019). "Digital Disruption and Competition in Southeast 
+  Asian Telecommunications." Journal of Asian Economics (under review).
+
+================================================================================
+LANGUAGE PROFICIENCY
+================================================================================
+
+Languages:
+- English: Fluent (native speaker)
+- Mandarin Chinese: Fluent
+- Malay: Intermediate
+
+================================================================================
+VERIFIER INFORMATION
+================================================================================
+
+Registrar: Dr. Cheryl Lee, Deputy Registrar
+National University of Singapore
+Address: 21 Lower Kent Ridge Road, Singapore 119077
+Phone: +65-6516-1111
+Email: registrar@nus.edu.sg
+
+This is a true and authentic transcript of the academic record of the above-
+named student. It is issued on the authority of the Registrar.
+
+Issued on: May 31, 2019
+Valid from: 2015 - 2019
+
+================================================================================

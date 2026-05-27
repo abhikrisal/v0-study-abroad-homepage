@@ -5,8 +5,7 @@ import { MapPin, BookOpen, Heart, ExternalLink, Loader2 } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { createClient } from "@/lib/supabase/client"
-import { removeSavedProgram } from "@/lib/actions/programs"
+import { getSavedProgramsForDashboard, removeSavedProgram } from "@/lib/actions/programs"
 
 interface SavedProgram {
   id: string
@@ -46,37 +45,8 @@ export function SavedPrograms() {
 
   useEffect(() => {
     async function fetchSavedPrograms() {
-      const supabase = createClient()
-      const { data: { user } } = await supabase.auth.getUser()
-      
-      if (!user) {
-        setLoading(false)
-        return
-      }
-
-      const { data } = await supabase
-        .from("saved_programs")
-        .select(`
-          id,
-          match_percentage,
-          programs (
-            id,
-            name,
-            level,
-            tuition_fee,
-            currency,
-            deadline,
-            universities (
-              name,
-              country
-            )
-          )
-        `)
-        .eq("user_id", user.id)
-        .order("created_at", { ascending: false })
-        .limit(4)
-
-      setSavedPrograms((data as SavedProgram[]) || [])
+      const data = await getSavedProgramsForDashboard()
+      setSavedPrograms(data as SavedProgram[])
       setLoading(false)
     }
 

@@ -7,10 +7,10 @@ import { Input } from "@/components/ui/input"
 
 const footerLinks = {
   product: [
-    { label: "Features", href: "#features" },
-    { label: "How It Works", href: "#how-it-works" },
-    { label: "Programs", href: "/programs" },
+    { label: "Find Universities", href: "/programs" },
     { label: "Eligibility Check", href: "/eligibility" },
+    { label: "Visa Guide", href: "/visa" },
+    { label: "Community", href: "/community" },
   ],
   company: [
     { label: "About Us", href: "#" },
@@ -49,7 +49,7 @@ export function Footer() {
               <div className="w-8 h-8 rounded-lg bg-accent flex items-center justify-center">
                 <span className="text-sm font-bold text-accent-foreground">E</span>
               </div>
-              <span className="text-xl font-semibold">Edulynx</span>
+              <span className="text-xl font-semibold">EduLynx</span>
             </Link>
             <p className="mt-4 text-sm text-primary-foreground/70 leading-relaxed max-w-xs">
               Your trusted partner in international education. Connecting ambitious students with world-class universities.
@@ -139,7 +139,7 @@ export function Footer() {
 
         <div className="mt-12 pt-8 border-t border-primary-foreground/20 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-sm text-primary-foreground/70">
-            &copy; {new Date().getFullYear()} Edulynx. All rights reserved.
+            &copy; {new Date().getFullYear()} EduLynx. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
             <Link

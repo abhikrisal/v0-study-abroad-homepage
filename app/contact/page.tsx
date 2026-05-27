@@ -152,10 +152,15 @@ export default function ContactPage() {
 
               {/* Social Links */}
               <div className="pt-4">
-                <h3 className="font-semibold text-foreground mb-4">Follow Us</h3>
-                <div className="flex items-center gap-4">
+                <h3 className="font-semibold text-foreground mb-4">Connect With Us</h3>
+                <p className="text-sm text-muted-foreground">
+                  Follow us on social media for the latest updates, study abroad tips, and student success stories.
+                </p>
+                <div className="flex items-center gap-4 mt-4">
                   <a
-                    href="#"
+                    href="https://twitter.com/edulynx"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary/80 transition-colors"
                     aria-label="Twitter"
                   >
@@ -164,7 +169,9 @@ export default function ContactPage() {
                     </svg>
                   </a>
                   <a
-                    href="#"
+                    href="https://linkedin.com/company/edulynx"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary/80 transition-colors"
                     aria-label="LinkedIn"
                   >
@@ -173,7 +180,9 @@ export default function ContactPage() {
                     </svg>
                   </a>
                   <a
-                    href="#"
+                    href="https://instagram.com/edulynx"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary/80 transition-colors"
                     aria-label="Instagram"
                   >

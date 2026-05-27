@@ -126,40 +126,58 @@ export default function OnboardingPage() {
           return
         }
 
-        // Update profile
+        // 1. Update profiles table (only columns that exist)
         const { error: profileError } = await supabase
           .from('profiles')
           .upsert({
             id: user.id,
+            email: user.email,
             first_name: formData.firstName,
             last_name: formData.lastName,
             phone: formData.phone,
-            country: formData.nationality,
-            highest_education: formData.highestQualification,
-            gpa: formData.gpa ? parseFloat(formData.gpa) : null,
-            english_test: formData.englishTest,
-            english_score: formData.englishScore ? parseFloat(formData.englishScore) : null,
+            nationality: formData.nationality,
+            role: 'student',
+            profile_completed: 100,
             updated_at: new Date().toISOString()
           })
 
         if (profileError) {
+          console.log('[v0] profileError:', profileError.message)
           throw profileError
         }
 
-        // Update preferences
+        // 2. Upsert academic_background table
+        const { error: academicError } = await supabase
+          .from('academic_background')
+          .upsert({
+            user_id: user.id,
+            highest_education: formData.highestQualification,
+            gpa: formData.gpa ? parseFloat(formData.gpa) : null,
+            english_test_type: formData.englishTest,
+            english_test_score: formData.englishScore ? parseFloat(formData.englishScore) : null,
+            updated_at: new Date().toISOString()
+          }, { onConflict: 'user_id' })
+
+        if (academicError) {
+          console.log('[v0] academicError:', academicError.message)
+          throw academicError
+        }
+
+        // 3. Upsert preferences table
         const { error: prefError } = await supabase
           .from('preferences')
           .upsert({
             user_id: user.id,
-            preferred_countries: [formData.preferredCountry],
-            preferred_fields: [formData.fieldOfStudy],
+            preferred_countries: formData.preferredCountry ? [formData.preferredCountry] : [],
+            preferred_fields: formData.fieldOfStudy ? [formData.fieldOfStudy] : [],
             budget_min: formData.budgetMin ? parseInt(formData.budgetMin) : null,
             budget_max: formData.budgetMax ? parseInt(formData.budgetMax) : null,
-            preferred_level: formData.programLevel,
+            program_level: formData.programLevel,
             updated_at: new Date().toISOString()
-          })
+          }, { onConflict: 'user_id' })
 
         if (prefError) {
+          console.log('[v0] prefError:', prefError.message)
           throw prefError
         }
 

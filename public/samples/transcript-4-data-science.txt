@@ -1,0 +1,103 @@
+═══════════════════════════════════════════════════════════════════════════════
+                         OFFICIAL ACADEMIC TRANSCRIPT
+                       IMPERIAL COLLEGE LONDON
+                        Department of Computing
+═══════════════════════════════════════════════════════════════════════════════
+
+STUDENT INFORMATION
+───────────────────────────────────────────────────────────────────────────────
+Name:               Aisha Chiamaka Okonkwo
+Student ID:         ICL-2016-00892145
+Date of Birth:      3 November 1998
+Program:            MSc Applied Statistics
+Award:              Master of Science
+Enrollment Date:    October 2020
+Completion Date:    September 2021
+Classification:     Distinction
+
+Previous Degree:    BSc Statistics (First Class Honours)
+                    University of Lagos, Nigeria (2020)
+
+═══════════════════════════════════════════════════════════════════════════════
+                              ACADEMIC RECORD
+═══════════════════════════════════════════════════════════════════════════════
+
+AUTUMN TERM (October 2020 - December 2020)
+───────────────────────────────────────────────────────────────────────────────
+Module Code    Module Title                             Credits    Mark    Grade
+STAT60001      Probability and Statistics               15         78      A
+STAT60002      Statistical Modelling I                  15         82      A*
+STAT60003      Computational Statistics                 15         85      A*
+STAT60004      Machine Learning                         15         88      A*
+───────────────────────────────────────────────────────────────────────────────
+Term Average: 83.3%                              Total Credits: 60
+
+SPRING TERM (January 2021 - March 2021)
+───────────────────────────────────────────────────────────────────────────────
+Module Code    Module Title                             Credits    Mark    Grade
+STAT60005      Statistical Modelling II                 15         80      A*
+STAT60006      Bayesian Methods                         15         85      A*
+STAT60007      Time Series Analysis                     15         79      A
+STAT60008      Applied Stochastic Processes             15         81      A*
+───────────────────────────────────────────────────────────────────────────────
+Term Average: 81.3%                              Total Credits: 60
+
+SUMMER TERM (April 2021 - September 2021)
+───────────────────────────────────────────────────────────────────────────────
+Module Code    Module Title                             Credits    Mark    Grade
+STAT60009      Deep Learning                            15         90      A*
+STAT60010      Advanced Machine Learning                15         87      A*
+STAT60011      MSc Research Project                     60         89      A*
+───────────────────────────────────────────────────────────────────────────────
+Term Average: 88.5%                              Total Credits: 90
+
+═══════════════════════════════════════════════════════════════════════════════
+                         MSc DISSERTATION
+═══════════════════════════════════════════════════════════════════════════════
+Title:          "Predicting Hospital Readmissions Using Ensemble Methods: 
+                 A Comparative Analysis of Gradient Boosting, Random Forests, 
+                 and Neural Network Approaches"
+
+Supervisor:     Professor David Hand, FBA
+Mark:           89/100 (Distinction)
+Word Count:     15,847
+
+Abstract:
+This dissertation presents a comprehensive analysis of machine learning methods
+for predicting 30-day hospital readmissions using NHS patient data. The study
+compared traditional statistical approaches with modern ensemble methods,
+demonstrating that a stacked ensemble model achieved 92% accuracy with
+significant improvements in sensitivity for high-risk patient identification.
+
+Examiner Comments:
+"An exceptional piece of work demonstrating sophisticated understanding of 
+both statistical theory and practical healthcare applications. The methodology
+is rigorous, the analysis thorough, and the conclusions well-supported. 
+Strongly recommended for publication."
+
+═══════════════════════════════════════════════════════════════════════════════
+                              SUMMARY
+═══════════════════════════════════════════════════════════════════════════════
+Total Credits Completed:     210
+Overall Weighted Average:    84.2%
+Final Classification:        Distinction (First Division)
+
+Grading Scale:
+  A* (Distinction): 70%+
+  A (Merit):        60-69%
+  B (Pass):         50-59%
+  Fail:             Below 50%
+
+Awards and Recognition:
+  - Department Prize for Best MSc Dissertation (2021)
+  - Imperial College Data Science Society - President (2020-2021)
+  - Research published in Journal of Medical Informatics
+
+IELTS Score:                 8.5 Overall (L: 9.0, R: 8.5, W: 8.0, S: 8.5)
+GRE Score:                   332 (V: 165, Q: 167, AWA: 5.0)
+
+═══════════════════════════════════════════════════════════════════════════════
+This transcript is official when bearing the College seal and Registrar signature.
+Issue Date: 15 October 2021
+Document Reference: ICL-MSC-TR-2021-892145
+═══════════════════════════════════════════════════════════════════════════════

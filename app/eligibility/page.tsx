@@ -64,6 +64,8 @@ const categoryConfig = {
 export default function EligibilityPage() {
   const [isPending, startTransition] = useTransition()
   const [showResults, setShowResults] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [validationError, setValidationError] = useState<string | null>(null)
   const [results, setResults] = useState<{
     safeSchools: University[]
     moderateSchools: University[]
@@ -105,13 +107,26 @@ export default function EligibilityPage() {
 
   const handleCheck = async (e: React.FormEvent) => {
     e.preventDefault()
+    setValidationError(null)
+    setError(null)
     
     if (!formData.gpa || !formData.englishScore || !formData.budget) {
-      alert('Please fill in all required fields')
+      setValidationError('Please fill in GPA, English Score, and Budget fields')
+      return
+    }
+
+    if (parseFloat(formData.gpa) > 4 || parseFloat(formData.gpa) < 0) {
+      setValidationError('GPA must be between 0 and 4.0')
+      return
+    }
+
+    if (parseFloat(formData.englishScore) > 9 || parseFloat(formData.englishScore) < 0) {
+      setValidationError('English score must be between 0 and 9.0')
       return
     }
 
     startTransition(async () => {
+      setError(null)
       try {
         const result = await checkEligibility({
           gpa: parseFloat(formData.gpa),
@@ -125,8 +140,7 @@ export default function EligibilityPage() {
         setResults(result as any)
         setShowResults(true)
       } catch (error) {
-        console.error('Error checking eligibility:', error)
-        alert('Error checking eligibility. Please try again.')
+        setError('Unable to check eligibility. Please try again.')
       }
     })
   }
@@ -348,6 +362,12 @@ export default function EligibilityPage() {
                     </div>
                   </div>
 
+                  {validationError && (
+                    <div className="p-3 rounded-lg border border-destructive/30 bg-destructive/10 text-destructive text-sm">
+                      {validationError}
+                    </div>
+                  )}
+
                   <Button 
                     type="submit" 
                     className="w-full gap-2"
@@ -371,6 +391,11 @@ export default function EligibilityPage() {
 
             {/* Results */}
             <div className="lg:col-span-2">
+              {error && (
+                <div className="mb-4 p-4 rounded-lg border border-destructive/30 bg-destructive/10 text-destructive text-sm">
+                  {error}
+                </div>
+              )}
               {!showResults ? (
                 <Card className="h-full flex items-center justify-center min-h-[400px]">
                   <CardContent className="text-center py-12">

@@ -1,0 +1,245 @@
+================================================================================
+                     ACADEMIC TRANSCRIPT
+================================================================================
+
+Institution: National Autonomous University of Mexico (UNAM)
+Program: Bachelor of Science in Mechanical Engineering
+Degree Awarded: June 2021
+Cumulative GPA: 9.52/10 | Classification: Summa Cum Laude
+
+Student: Maria Rodriguez
+Student ID: UNAM2017ME8934
+Address: Mexico City, Mexico
+Contact: +52-5551234567
+
+================================================================================
+ACADEMIC PROFILE
+================================================================================
+
+Degree Awarded: Bachelor of Science in Mechanical Engineering
+Faculty: Engineering
+Program: Full-Time (4 years)
+Date of Graduation: June 2021
+Duration: Aug 2017 - June 2021
+
+Overall GPA: 9.52/10
+Classification: Summa Cum Laude (Top 1% of class)
+Academic Standing: Excellent
+
+================================================================================
+COURSE GRADES SUMMARY
+================================================================================
+
+First Year (2017-2018): GPA 9.55/10
+- Advanced Calculus I & II: 9.8, 9.7
+- Linear Algebra: 9.6
+- Physics I & II: 9.5, 9.4
+- Chemistry: 9.3
+- Engineering Graphics: 9.7
+- Introduction to Engineering: 9.8
+
+Second Year (2018-2019): GPA 9.58/10
+- Differential Equations: 9.7
+- Engineering Mechanics (Statics): 9.8
+- Engineering Mechanics (Dynamics): 9.6
+- Thermodynamics I: 9.7
+- Materials Science: 9.4
+- Manufacturing Processes: 9.5
+- Mechanical Design I: 9.6
+
+Third Year (2019-2020): GPA 9.51/10
+- Thermodynamics II: 9.6
+- Fluid Mechanics: 9.7
+- Heat Transfer: 9.5
+- Mechanical Vibrations: 9.4
+- Control Systems: 9.3
+- Mechanical Design II: 9.6
+- Machine Elements: 9.5
+- Renewable Energy Systems: 9.8
+
+Fourth Year (2020-2021): GPA 9.48/10
+- Advanced Heat Transfer: 9.5
+- Solar Thermal Systems: 9.8
+- Finite Element Analysis: 9.6
+- Energy Efficiency & Sustainability: 9.7
+- Senior Design Project: 9.8
+- Professional Ethics in Engineering: 9.4
+- Capstone: Research Thesis: 9.6
+
+================================================================================
+SENIOR THESIS PROJECT
+================================================================================
+
+Title: "Optimization of Solar Thermal Systems for Industrial Heat Applications 
+        in Tropical Climates"
+
+Advisor: Dr. Carlos Mendez, Professor of Mechanical Engineering
+Co-Advisor: Dr. Ana Martinez, Department of Renewable Energy
+Status: Completed with Distinction
+Grade: 9.8/10
+
+Research Objectives:
+- Design optimized solar thermal systems for Mexican industrial sector
+- Develop mathematical models for system performance in tropical climate
+- Conduct experimental validation of proposed designs
+
+Key Results:
+- Developed novel solar collector design increasing efficiency by 18%
+- Created predictive models for system performance across Mexico regions
+- Estimated potential energy savings for 50+ industrial applications
+- Generated 2 patent applications filed with Mexican patent office
+
+Research Outcomes:
+- Published in 2 peer-reviewed journals (International Journal of Solar Energy, 
+  Renewable Energy Research)
+- Presented at 2 international conferences
+- Project highlighted as exemplary by Faculty of Engineering
+
+================================================================================
+ACADEMIC ACHIEVEMENTS & AWARDS
+================================================================================
+
+University Awards:
+- UNAM Excellence Award (2021): For outstanding academic achievement and research
+- Faculty Merit Scholarship (2017-2021): Full tuition waiver
+- Dean's List: All 8 semesters
+- Best Engineering Thesis Award (2021)
+
+National Recognitions:
+- Mexican Academy of Sciences - Young Scholar Award (2021)
+- National Research Foundation Honors (2021)
+- CONACYT Research Fellowship (2021)
+
+================================================================================
+STANDARDIZED TEST SCORES
+================================================================================
+
+Graduate Record Examination (GRE):
+Test Date: October 2020
+Quantitative Reasoning: 162/170 (88th percentile)
+Verbal Reasoning: 158/170 (78th percentile)
+Analytical Writing: 5.0/6.0
+Total Score: 320/340
+
+Test of English as a Foreign Language (TOEFL):
+Test Date: September 2020
+Reading: 29/30
+Writing: 28/30
+Listening: 26/30
+Speaking: 26/30
+Total Score: 109/120
+
+German Language Test (DAF - Deutschsprache für Ausbildung):
+Test Date: June 2021
+Reading/Writing: 4/5
+Listening/Speaking: 4/5
+Overall Level: Advanced (C1)
+Total Score: 4/5
+
+================================================================================
+PROFESSIONAL INTERNSHIPS & INDUSTRY EXPERIENCE
+================================================================================
+
+Internship 1: PEMEX (Petróleos Mexicanos)
+Duration: June 2019 - August 2019 (3 months)
+Position: Engineering Intern, Energy Efficiency Department
+Supervisor: Ing. Roberto Flores
+
+Responsibilities & Achievements:
+- Conducted energy audits for 5 industrial facilities
+- Identified energy efficiency improvement opportunities (average 22% savings)
+- Developed recommendations for renewable energy integration
+
+Internship 2: GRUPO ISOFOTON MÉXICO
+Duration: May 2020 - July 2020 (3 months)
+Position: Design Engineering Intern, Solar Systems
+Supervisor: Dr. Fernando López
+
+Responsibilities & Achievements:
+- Assisted in design of solar thermal systems for commercial clients
+- Conducted thermal simulations using ANSYS software
+- Contributed to technical proposals for 3 major projects
+- Exposure to European solar technology standards
+
+Research Collaboration:
+UNAM Institute of Engineering (2020-2021)
+- Collaborated on research project funded by Mexican Ministry of Energy
+- Conducted experimental testing of solar collectors
+- Co-authored technical reports on solar technology performance
+
+================================================================================
+LANGUAGE PROFICIENCY
+================================================================================
+
+Languages:
+- Spanish: Native (fluent)
+- English: Fluent (TOEFL 109/120)
+- German: Advanced (DAF C1 Level)
+- Portuguese: Intermediate
+
+================================================================================
+RESEARCH PUBLICATIONS & PRESENTATIONS
+================================================================================
+
+Peer-Reviewed Publications:
+1. Rodriguez, M., Mendez, C., Martinez, A. (2021). "Optimization of Solar 
+   Thermal Systems for Tropical Climates." International Journal of Solar 
+   Energy, 45(3), 234-251.
+
+2. Rodriguez, M., Martinez, A. (2021). "Design and Performance Analysis of 
+   Novel Solar Collectors." Renewable Energy Research Journal, 28(2), 112-128.
+
+Conference Presentations:
+1. "Optimization of Solar Thermal Systems for Industrial Applications." 
+   Presented at 15th International Solar Energy Conference, Mexico City (2021)
+
+2. "Sustainable Energy Solutions for Developing Nations." 
+   Presented at Latin American Engineering Forum, Monterrey (2021)
+
+================================================================================
+PROFESSIONAL CERTIFICATIONS & SKILLS
+================================================================================
+
+Software & Technical Skills:
+- ANSYS CFX/Fluent: Advanced (thermal simulation)
+- MATLAB: Proficient
+- AutoCAD: Proficient
+- Microsoft Office Suite: Advanced
+- Project Management: Intermediate
+
+Engineering Certifications:
+- AutoCAD Certified Associate (2019)
+- MATLAB Fundamentals Certificate (2020)
+
+================================================================================
+CUMULATIVE ACADEMIC RECORD
+================================================================================
+
+Total Courses Completed: 48 courses
+Average Course Grade: 9.52/10
+GPA Trend: Consistently above 9.4 throughout program
+Ranking: Top 1% of graduating class of 240 students
+
+Honors & Recognition:
+- Graduated Summa Cum Laude
+- Dean's Scholar (all semesters)
+- Faculty of Engineering Honors
+- University highest honors recipient
+
+================================================================================
+VERIFIER INFORMATION
+================================================================================
+
+Registrar: Dr. Cristina Álvarez, Registrar
+National Autonomous University of Mexico (UNAM)
+Address: Ciudad Universitaria, Coyoacán, Mexico City
+Phone: +52-55-5622-0000
+Email: registro@unam.mx
+
+This is a true and authentic transcript of the academic record of the above-
+named student. It is issued on the authority of the Registrar.
+
+Issued on: June 30, 2021
+Valid from: 2017 - 2021
+
+================================================================================

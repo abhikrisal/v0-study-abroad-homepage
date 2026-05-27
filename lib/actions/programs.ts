@@ -163,11 +163,77 @@ export async function getUniversities() {
   const { data, error } = await supabase
     .from('universities')
     .select('*')
-    .eq('is_active', true)
-    .order('ranking', { ascending: true })
+    .order('ranking_qs_2024', { ascending: true })
 
   if (error) {
     console.error('Error fetching universities:', error)
+    return []
+  }
+
+  return data || []
+}
+
+export async function getSavedProgramsForDashboard() {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  
+  if (!user) return []
+
+  const { data, error } = await supabase
+    .from('saved_programs')
+    .select(`
+      id,
+      match_percentage,
+      programs (
+        id,
+        name,
+        level,
+        tuition_fee,
+        currency,
+        deadline,
+        universities (
+          name,
+          country
+        )
+      )
+    `)
+    .eq('user_id', user.id)
+    .order('created_at', { ascending: false })
+    .limit(4)
+
+  if (error) {
+    console.error('Error fetching saved programs:', error)
+    return []
+  }
+
+  return data || []
+}
+
+export async function getApplications() {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  
+  if (!user) return []
+
+  const { data, error } = await supabase
+    .from('applications')
+    .select(`
+      id,
+      status,
+      submitted_at,
+      updated_at,
+      programs (
+        name,
+        universities (
+          name
+        )
+      )
+    `)
+    .eq('user_id', user.id)
+    .order('updated_at', { ascending: false })
+
+  if (error) {
+    console.error('Error fetching applications:', error)
     return []
   }
 

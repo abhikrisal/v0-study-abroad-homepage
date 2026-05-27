@@ -1,0 +1,27 @@
+STATEMENT OF PURPOSE
+Student: Priya Sharma
+Program: Master of Science in Computer Science
+Target University: Massachusetts Institute of Technology
+
+---
+
+Dear Admissions Committee,
+
+My fascination with technology began when I built my first website at age 14. That simple HTML page sparked a passion that has driven me through four years of rigorous undergraduate study in Computer Science at Delhi University, where I graduated with a 3.8 GPA.
+
+ACADEMIC BACKGROUND
+During my undergraduate studies, I specialized in Machine Learning and Artificial Intelligence. My final year project, "Predictive Analysis of Urban Traffic Patterns Using Deep Learning," was published in the IEEE Conference on Intelligent Transportation Systems. This research experience solidified my desire to pursue advanced studies in AI.
+
+PROFESSIONAL EXPERIENCE
+I completed a 6-month internship at Google India, where I worked on the Search Quality team. My contributions to improving search relevance for regional languages earned me a return offer. Additionally, I worked as a Research Assistant at IIT Delhi's AI Lab, contributing to projects on natural language processing for low-resource languages.
+
+WHY MIT?
+MIT's Computer Science and Artificial Intelligence Laboratory (CSAIL) represents the pinnacle of AI research. I am particularly interested in working with Professor Regina Barzilay on applying machine learning to healthcare challenges. Her work on using AI for early cancer detection aligns perfectly with my goal of creating technology that improves lives.
+
+CAREER GOALS
+After completing my master's degree, I aim to pursue a PhD and eventually lead an AI research lab focused on developing accessible AI solutions for developing nations. I believe MIT's rigorous academic environment and collaborative culture will provide the ideal foundation for achieving these goals.
+
+I am confident that my academic achievements, research experience, and passion for AI make me a strong candidate for MIT's MS in Computer Science program.
+
+Sincerely,
+Priya Sharma

@@ -1,0 +1,31 @@
+STATEMENT OF PURPOSE
+Student: Aisha Okonkwo
+Program: Master of Science in Data Science
+Target University: University of Oxford
+
+---
+
+Dear Admissions Committee,
+
+Data has the power to reveal hidden truths and drive meaningful change. This conviction has guided my academic journey from Lagos to London, and now propels my application to Oxford's prestigious Data Science program.
+
+ACADEMIC BACKGROUND
+I graduated from the University of Lagos with a First Class Honours in Statistics, ranking second in my cohort of 156 students. My undergraduate research focused on applying statistical methods to public health data, specifically modeling the spread of infectious diseases in urban African populations.
+
+Subsequently, I completed a Master's in Applied Statistics at Imperial College London, where I specialized in machine learning and Bayesian inference. My dissertation, "Predicting Hospital Readmissions Using Ensemble Methods," achieved a distinction and was commended for its practical applicability to NHS operations.
+
+PROFESSIONAL EXPERIENCE
+Currently, I work as a Data Scientist at DeepMind Health, where I develop algorithms for early disease detection. My most significant contribution has been a model that identifies patients at risk of acute kidney injury 48 hours before clinical symptoms appear, with 92% accuracy. This project has been piloted in three NHS hospitals.
+
+WHY OXFORD?
+Oxford's Data Science program uniquely combines rigorous statistical foundations with cutting-edge machine learning applications. The interdisciplinary nature of the program, spanning the Department of Statistics and the Oxford Internet Institute, aligns perfectly with my goal of applying data science to social challenges.
+
+I am particularly excited about the opportunity to work with Professor Yee Whye Teh on probabilistic machine learning and its applications to healthcare.
+
+FUTURE ASPIRATIONS
+My ultimate goal is to establish an AI for Health initiative in Africa, developing data-driven solutions tailored to the continent's unique healthcare challenges. Oxford's global network and research excellence will be instrumental in realizing this vision.
+
+Thank you for considering my application.
+
+Respectfully,
+Aisha Okonkwo

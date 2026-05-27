@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { 
   DropdownMenu, 
@@ -13,37 +12,23 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Menu, X, User, LogOut, LayoutDashboard } from "lucide-react"
-import { createClient } from "@/lib/supabase/client"
+import { signOut, getUser } from "@/lib/actions/auth"
 import type { User as SupabaseUser } from "@supabase/supabase-js"
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [user, setUser] = useState<SupabaseUser | null>(null)
   const [loading, setLoading] = useState(true)
-  const router = useRouter()
 
   useEffect(() => {
-    const supabase = createClient()
-    
-    // Get initial user
-    supabase.auth.getUser().then(({ data: { user } }) => {
+    getUser().then((user) => {
       setUser(user)
       setLoading(false)
     })
-
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null)
-    })
-
-    return () => subscription.unsubscribe()
   }, [])
 
   const handleLogout = async () => {
-    const supabase = createClient()
-    await supabase.auth.signOut()
-    router.push('/')
-    router.refresh()
+    await signOut()
   }
 
   const getInitials = () => {
@@ -53,54 +38,36 @@ export function Header() {
   }
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-primary/95 backdrop-blur-md border-b border-primary/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-              <span className="text-sm font-bold text-primary-foreground">E</span>
+            <div className="w-8 h-8 rounded-lg bg-accent flex items-center justify-center">
+              <span className="text-sm font-bold text-accent-foreground">E</span>
             </div>
-            <span className="text-xl font-semibold tracking-tight text-foreground">
-              Edulynx
+            <span className="text-xl font-semibold tracking-tight text-primary-foreground">
+              EduLynx
             </span>
           </Link>
 
-          <nav className="hidden md:flex items-center gap-8">
-            <Link
-              href="/"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Home
-            </Link>
-            <Link
-              href="/programs"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Programs
-            </Link>
-            <Link
-              href="/eligibility"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Eligibility Check
-            </Link>
-            <Link
-              href="/contact"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Contact
-            </Link>
+          <nav className="hidden md:flex items-center gap-6">
+            <Link href="/" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">Home</Link>
+            <Link href="/programs" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">Find Universities</Link>
+            <Link href="/eligibility" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">Eligibility Check</Link>
+            <Link href="/visa" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">Visa Guide</Link>
+            <Link href="/community" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">Community</Link>
+            <Link href="/contact" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">Contact</Link>
           </nav>
 
-          <div className="hidden md:flex items-center gap-4">
+          <div className="hidden md:flex items-center gap-3">
             {loading ? (
-              <div className="w-8 h-8 rounded-full bg-muted animate-pulse" />
+              <div className="w-8 h-8 rounded-full bg-primary-foreground/20 animate-pulse" />
             ) : user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                  <Button variant="ghost" className="relative h-8 w-8 rounded-full hover:bg-primary-foreground/10">
                     <Avatar className="h-8 w-8">
-                      <AvatarFallback className="bg-accent text-accent-foreground">
+                      <AvatarFallback className="bg-accent text-accent-foreground text-sm font-bold">
                         {getInitials()}
                       </AvatarFallback>
                     </Avatar>
@@ -115,109 +82,70 @@ export function Header() {
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
                     <Link href="/dashboard" className="cursor-pointer">
-                      <LayoutDashboard className="mr-2 h-4 w-4" />
-                      Dashboard
+                      <LayoutDashboard className="mr-2 h-4 w-4" />Dashboard
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link href="/dashboard" className="cursor-pointer">
-                      <User className="mr-2 h-4 w-4" />
-                      Profile
+                      <User className="mr-2 h-4 w-4" />Profile
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={handleLogout} className="cursor-pointer text-red-600">
-                    <LogOut className="mr-2 h-4 w-4" />
-                    Log out
+                  <DropdownMenuItem onClick={handleLogout} className="cursor-pointer text-destructive">
+                    <LogOut className="mr-2 h-4 w-4" />Log out
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
               <>
-                <Button variant="ghost" size="sm" asChild>
+                <Button variant="ghost" size="sm" className="text-primary-foreground hover:bg-primary-foreground/10" asChild>
                   <Link href="/login">Login</Link>
                 </Button>
-                <Button size="sm" asChild>
-                  <Link href="/onboarding">Get Started</Link>
+                <Button size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90" asChild>
+                  <Link href="/signup">Sign Up</Link>
                 </Button>
               </>
             )}
           </div>
 
-          <button
-            className="md:hidden p-2"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {isMenuOpen ? (
-              <X className="h-5 w-5 text-foreground" />
-            ) : (
-              <Menu className="h-5 w-5 text-foreground" />
-            )}
+          <button className="md:hidden p-2" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Toggle menu">
+            {isMenuOpen ? <X className="h-5 w-5 text-primary-foreground" /> : <Menu className="h-5 w-5 text-primary-foreground" />}
           </button>
         </div>
       </div>
 
       {isMenuOpen && (
-        <div className="md:hidden bg-background border-t border-border">
+        <div className="md:hidden bg-primary border-t border-primary-foreground/10">
           <div className="px-4 py-4 flex flex-col gap-4">
-            <Link
-              href="/"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Home
-            </Link>
-            <Link
-              href="/programs"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Programs
-            </Link>
-            <Link
-              href="/eligibility"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Eligibility Check
-            </Link>
-            <Link
-              href="/contact"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Contact
-            </Link>
-            <div className="flex flex-col gap-2 pt-2 border-t border-border">
+            {[
+              { href: "/", label: "Home" },
+              { href: "/programs", label: "Find Universities" },
+              { href: "/eligibility", label: "Eligibility Check" },
+              { href: "/visa", label: "Visa Guide" },
+              { href: "/community", label: "Community" },
+              { href: "/contact", label: "Contact" },
+            ].map((link) => (
+              <Link key={link.href} href={link.href} className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors" onClick={() => setIsMenuOpen(false)}>
+                {link.label}
+              </Link>
+            ))}
+            <div className="flex flex-col gap-2 pt-2 border-t border-primary-foreground/10">
               {user ? (
                 <>
-                  <Button variant="ghost" size="sm" className="justify-start" asChild>
-                    <Link href="/dashboard" onClick={() => setIsMenuOpen(false)}>
-                      <LayoutDashboard className="mr-2 h-4 w-4" />
-                      Dashboard
-                    </Link>
+                  <Button variant="ghost" size="sm" className="justify-start text-primary-foreground" asChild>
+                    <Link href="/dashboard" onClick={() => setIsMenuOpen(false)}><LayoutDashboard className="mr-2 h-4 w-4" />Dashboard</Link>
                   </Button>
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    className="justify-start text-red-600"
-                    onClick={() => {
-                      handleLogout()
-                      setIsMenuOpen(false)
-                    }}
-                  >
-                    <LogOut className="mr-2 h-4 w-4" />
-                    Log out
+                  <Button variant="ghost" size="sm" className="justify-start text-destructive" onClick={() => { handleLogout(); setIsMenuOpen(false) }}>
+                    <LogOut className="mr-2 h-4 w-4" />Log out
                   </Button>
                 </>
               ) : (
                 <>
-                  <Button variant="ghost" size="sm" className="justify-start" asChild>
+                  <Button variant="ghost" size="sm" className="justify-start text-primary-foreground" asChild>
                     <Link href="/login" onClick={() => setIsMenuOpen(false)}>Login</Link>
                   </Button>
-                  <Button size="sm" asChild>
-                    <Link href="/onboarding" onClick={() => setIsMenuOpen(false)}>Get Started</Link>
+                  <Button size="sm" className="bg-accent text-accent-foreground" asChild>
+                    <Link href="/signup" onClick={() => setIsMenuOpen(false)}>Sign Up</Link>
                   </Button>
                 </>
               )}

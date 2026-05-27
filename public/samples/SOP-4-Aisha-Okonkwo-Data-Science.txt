@@ -1,0 +1,187 @@
+STATEMENT OF PURPOSE
+================================================================================
+
+Applicant: Aisha Okonkwo
+Program: Master of Science in Data Science
+Target University: University of Oxford
+Date: May 2026
+
+================================================================================
+
+ACADEMIC MOTIVATION
+
+I am applying to Oxford's Master's program in Data Science to deepen my expertise 
+in machine learning and data-driven decision-making, with a focus on applying 
+these skills to solve critical problems in healthcare and public health in 
+developing nations. With a strong foundation in statistics (MSc Applied Statistics 
+from Imperial College London, Distinction) and two years of professional 
+experience as a Data Scientist, I am confident that Oxford's world-leading 
+research in data science and its commitment to social impact align perfectly 
+with my career aspirations.
+
+My motivation to pursue advanced studies in data science stems from witnessing 
+how data-driven insights can transform healthcare outcomes, yet recognizing the 
+significant gap in data science talent and infrastructure in Africa and other 
+developing regions. I am committed to building expertise that will enable me to 
+establish data science research centers and training programs in Africa.
+
+================================================================================
+
+ACADEMIC BACKGROUND
+
+I completed my Master's degree in Applied Statistics from Imperial College London 
+with a Distinction (GPA: 84.2%), graduating in the top 5% of my program. My 
+coursework included advanced studies in:
+
+- Machine Learning and Statistical Modeling
+- Time Series Analysis and Forecasting
+- Bayesian Statistics and Computational Methods
+- Applied Multivariate Analysis
+- Statistical Computing with R and Python
+
+My Master's thesis, "Predictive Modeling of Tuberculosis Treatment Outcomes in 
+Sub-Saharan Africa," combined statistical methodology with real-world public 
+health data, resulting in insights that informed policy recommendations from 
+the WHO.
+
+Undergraduate degree: Bachelor of Science in Statistics from University of Lagos, 
+Nigeria (First Class Honors, GPA: 3.9/4.0)
+
+Standardized test scores:
+- GRE: 325/340 (Quantitative: 167/170, Verbal: 158/170)
+- TOEFL: 112/120
+
+Language skills: English (fluent), Yoruba (native), French (intermediate)
+
+================================================================================
+
+PROFESSIONAL EXPERIENCE
+
+Flatiron Health - 2023 to Present
+Position: Data Scientist, Healthcare Analytics
+
+At Flatiron Health, a leading healthcare data science company, I analyze real-world 
+clinical data to support cancer treatment research and outcomes optimization. 
+Key accomplishments include:
+
+1. Developed machine learning models to predict treatment response and patient 
+   outcomes, achieving 82% accuracy in predicting treatment failure—enabling 
+   clinicians to intervene earlier.
+
+2. Built automated data pipelines processing 100M+ clinical records daily, 
+   improving data quality by 25% and enabling faster analysis for research teams.
+
+3. Collaborated with oncologists and clinical researchers to design and conduct 
+   2 retrospective observational studies resulting in peer-reviewed publications 
+   in leading medical journals.
+
+4. Created interactive dashboards visualizing clinical outcomes and treatment 
+   patterns, enabling data-driven decision-making for hospital administrators 
+   and clinicians.
+
+5. Led a project analyzing health equity in cancer treatment outcomes, identifying 
+   racial and ethnic disparities and recommending interventions.
+
+Previous position: Data Analyst Intern, Médecins Sans Frontières (MSF) - 2022
+- Analyzed humanitarian response data to optimize resource allocation
+- Developed predictive models for disease outbreak detection in remote regions
+
+This professional experience has demonstrated to me the transformative impact 
+of data science when applied thoughtfully to real-world healthcare challenges, 
+while also highlighting the significant disparities in access to advanced 
+analytics capabilities between developed and developing nations.
+
+================================================================================
+
+RESEARCH INTERESTS & GOALS AT OXFORD
+
+At Oxford, I aim to conduct research on:
+
+1. Machine learning applications for healthcare diagnostics and outcomes 
+   prediction in low-resource settings
+
+2. Statistical methods for analyzing complex clinical data from diverse populations
+
+3. Fairness and bias in healthcare AI systems, ensuring equitable outcomes 
+   across different demographic groups
+
+4. Translating advanced data science methodologies to practical applications 
+   in developing countries' healthcare systems
+
+Oxford's world-leading research in data science, biomedical statistics, and its 
+strong commitment to global health and health equity make it the ideal 
+environment for pursuing this research agenda.
+
+================================================================================
+
+WHY OXFORD?
+
+Oxford is my top choice for the following reasons:
+
+1. ACADEMIC EXCELLENCE: Oxford's Data Science program combines rigorous 
+   statistical methodology with practical machine learning—exactly what I need 
+   to advance my expertise.
+
+2. RESEARCH IMPACT: Oxford's research in biomedical data science directly 
+   addresses healthcare challenges globally, aligning with my passion for 
+   using data science for social good.
+
+3. WORLD-LEADING FACULTY: Oxford's faculty includes pioneers in machine learning, 
+   biostatistics, and health data science whose research I have studied.
+
+4. GLOBAL NETWORK: Oxford's international community and partnerships with 
+   institutions across Africa and Asia will support my vision of building 
+   data science capacity in developing countries.
+
+5. INTERDISCIPLINARY APPROACH: Oxford's emphasis on collaborating with domain 
+   experts (clinicians, public health professionals) aligns with my belief that 
+   great data science requires deep contextual understanding.
+
+6. TUTORIAL SYSTEM: Oxford's famous tutorial system will provide personalized 
+   mentorship from leading researchers in my field.
+
+================================================================================
+
+CAREER VISION & POST-MASTERS GOALS
+
+Short-term (during and after Master's):
+- Develop expertise in cutting-edge machine learning and statistical methods
+- Conduct research on healthcare AI applications in low-resource settings
+- Build professional network with leading researchers and organizations
+
+Medium-term (2-4 years):
+- Join a global health organization or research institution focused on addressing 
+  health disparities
+- Lead projects applying advanced analytics to healthcare challenges in Africa
+- Contribute to peer-reviewed publications in leading medical/data science journals
+
+Long-term vision:
+- Establish a Center for Data Science and Global Health in Sub-Saharan Africa
+- Build and lead teams of data scientists working on healthcare, epidemiology, 
+  and public health challenges
+- Create training programs to build data science capacity across Africa
+- Contribute to making advanced healthcare analytics accessible and affordable 
+  to developing countries' health systems
+
+================================================================================
+
+CONCLUSION
+
+I am confident that Oxford's Master's program in Data Science will provide me 
+with the advanced technical expertise, research experience, and global perspective 
+necessary to lead innovation in healthcare data science and to build data science 
+capacity in Africa. Oxford's combination of academic excellence, research impact, 
+and commitment to global health makes it the ideal platform for achieving my 
+career goals.
+
+I am excited about the opportunity to contribute to Oxford's vibrant learning 
+community while advancing my expertise in data science. Thank you for considering 
+my application.
+
+Sincerely,
+
+Aisha Okonkwo
+aisha.okonkwo@email.com
++234-8012345678
+
+================================================================================
